@@ -10,12 +10,10 @@
   <body>
 
     <ul>
-      <% if current_user %>
-        <li><%= link_to "Home", user_pictures_path(current_user) %></li>
-      <% else %>
-        <li><%= link_to "Home"%></li>
-      <% end %>
-      <li><%link_to "profile page", user_path(current_user) if current_user %></li>
+      <!-- Collages could be substituted for Home -->
+      <li><%= link_to "Collages", user_pictures_path(current_user) if current_user%></li>
+      <!-- Portraits could be substituted for Profile or Collection -->
+      <li><%= link_to "Portrait", current_user if current_user%></li>
       <li><a href="#contact">Friend Requests</a></li>
       <% if current_user %>
       <li><%= link_to "Log Out", destroy_user_session_path, method: :delete%></li>
@@ -25,13 +23,11 @@
       <!-- look into where like ActiveRecord -->
       <li>
         <%= form_tag new_search_path, :method => 'get' do %>
-          <p> <%= text_field_tag :type, params[:type] %>
-            <select>
-              <option value="Location">Location</option>
-              <option value="User">User</option>
-              <option value="Tag">Tag</option>
-            </select>
-          <%= submit_tag "Search"%></p>
+          <p>
+            <%= text_field_tag :type, params[:type] %>
+            <%= select_tag(:search, options_for_select([['Location'], ['User'],['Tag']])) %>
+            <%= submit_tag "Search"%>
+          </p>
         <% end %>
       </li>
     </ul>

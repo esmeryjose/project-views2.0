@@ -6,19 +6,21 @@ class PicturesController < ApplicationController
   end
 
   def create
-
     @picture = Picture.new(picture_params)
     if helpers.both_location?(picture_params)
       @picture.errors.messages[:bad_location] = ["Can only choose one location"]
     end
-    if @picture.errors.any?
-      @pictures = current_user.pictures
-      render "users/show"
+    # if @picture.errors.any?
+    #   @pictures = current_user.pictures
+    #   render "users/show"
+    # else
+    if @picture.save
+      render json: @picture
     else
-      @picture.save
-      redirect_to user_path(current_user)
+      # render json: errors: @picture.errors.messages, status: 422
+      render :json => @picture.errors.messages, :status => 422
     end
-    
+
   end
 
   def show
