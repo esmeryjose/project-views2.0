@@ -1,5 +1,7 @@
+<div class="errors">
+</div>
+<br>
 <%= form_for picture, :html => { id:"nestedForm" } do |f| %>
-  <%= render partial: "pictures/error", locals: {picture: picture} %>
   <% if params[:action] != "edit" %>
     <%= f.file_field :avatar%><br><br>
   <% end %>

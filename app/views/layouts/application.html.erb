@@ -9,19 +9,19 @@
 
   <body>
 
-    <ul>
+    <ul class="navBar">
       <!-- Collages could be substituted for Home -->
-      <li><%= link_to "Collages", user_pictures_path(current_user) if current_user%></li>
+      <li class="barContent"><%= link_to "Collages", user_pictures_path(current_user) if current_user%></li>
       <!-- Portraits could be substituted for Profile or Collection -->
-      <li><%= link_to "Portrait", current_user if current_user%></li>
-      <li><a href="#contact">Friend Requests</a></li>
+      <li class="barContent"><%= link_to "Portrait", current_user if current_user%></li>
+      <li class="barContent"><a href="#contact">Friend Requests</a></li>
       <% if current_user %>
-      <li><%= link_to "Log Out", destroy_user_session_path, method: :delete%></li>
+      <li class="barContent"><%= link_to "Log Out", destroy_user_session_path, method: :delete%></li>
       <% else %>
-      <li><%= link_to "Sign In", user_session_path %></li>
+      <li class="barContent"><%= link_to "Sign In", user_session_path %></li>
       <% end %>
       <!-- look into where like ActiveRecord -->
-      <li>
+      <li class="barContent">
         <%= form_tag new_search_path, :method => 'get' do %>
           <p>
             <%= text_field_tag :type, params[:type] %>

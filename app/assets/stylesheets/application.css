@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- ul {
+ .navBar {
      list-style-type: none;
      margin: 0;
      padding: 0;
@@ -22,11 +22,11 @@
      background-color: #f3f3f3;
  }
 
- li {
+ .barContent {
      float: left;
  }
 
- li a {
+ .navBar .barContent {
      display: block;
      color: #666;
      text-align: center;
@@ -34,11 +34,15 @@
      text-decoration: none;
  }
 
- li a:hover:not(.active) {
+ .navBar .barContent a{
+   text-decoration: none;
+ }
+
+ .navBar .barContent:hover:not(.active) {
      background-color: #ddd;
  }
 
- li a.active {
+ .navBar .barContent.active {
      color: white;
      background-color: #4CAF50;
  }
