@@ -8,7 +8,7 @@ class Picture < ApplicationRecord
   validates :avatar, presence: :true
 
   scope :by_location, -> location {all.select{|pic| pic.location.title == location}}
-  scope :most_recent, -> { order(created_at: :desc).limit(10)}
+  scope :most_recent, -> { order(created_at: :asc)}
 
 
   def location_attributes=(attributes)
