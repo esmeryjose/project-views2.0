@@ -7,11 +7,17 @@ class UsersController < ApplicationController
   def show
     @picture = Picture.new
     # @pictures = current_user.pictures
-
-    # respond_to do |f|
-    #   f.html { render :show }
-    #   f.json { render json: @user}
-    # end
+    if @user
+      respond_to do |f|
+        f.html { render :show }
+        f.json { render json: { user: @user, currentUserId: current_user.id} }
+      end
+    else
+      respond_to do |f|
+        f.html { render :show }
+        f.json { render json: {user: "does not exist"}, status: 422}
+      end
+    end
   end
 
   private
