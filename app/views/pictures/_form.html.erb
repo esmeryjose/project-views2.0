@@ -25,9 +25,9 @@
   <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :title %><br><br>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <% if params[:action] == "edit" %>
-    <%= f.submit " Edit Picture" %>
+    <%= f.submit " Edit Picture", id:"submitButton"  %>
   <% else %>
-    <%= f.submit " Post Picture"  %>
+    <%= f.submit " Post Picture", id:"submitButton"  %>
   <% end %>
 
 <% end %>

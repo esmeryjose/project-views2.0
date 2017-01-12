@@ -6,7 +6,12 @@ class UsersController < ApplicationController
 
   def show
     @picture = Picture.new
-    @pictures = current_user.pictures
+    # @pictures = current_user.pictures
+
+    # respond_to do |f|
+    #   f.html { render :show }
+    #   f.json { render json: @user}
+    # end
   end
 
   private

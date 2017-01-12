@@ -18,7 +18,7 @@ class PicturesController < ApplicationController
       render json: @picture
     else
       # render json: errors: @picture.errors.messages, status: 422
-      render :json => @picture.errors.messages, :status => 422
+      render json: @picture.errors.messages, status: 422
     end
 
   end
