@@ -1,6 +1,13 @@
-<%= render partial: "pictures/form", locals: {picture: @picture} %>
+<body id="<%= controller_name %>_<%= action_name %>">
 
-<br><br><br><br>
+  <div class="userInfo">
+  </div>
 
-<div id="thePictures">
-</div>
+  <%= render partial: "pictures/form", locals: {picture: @picture} %>
+
+  <br><br><br><br>
+
+  <div id="thePictures">
+  </div>
+
+</body>

@@ -2,7 +2,11 @@ class PicturesController < ApplicationController
   before_action :set_picture, only: [:edit, :update, :show, :destroy]
 
   def index
-    @pictures = Picture.most_recent
+    if params[:user_id]
+      @pictures = Picture.most_recent.where({user_id: params[:user_id]})
+    else
+      @pictures = Picture.most_recent
+    end
   end
 
   def create

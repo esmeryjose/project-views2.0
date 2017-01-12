@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only:[:show]
   def index
-    @users = User.all
+    # @users = User.all
   end
 
   def show
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if @user
       respond_to do |f|
         f.html { render :show }
-        f.json { render json: { user: @user, currentUserId: current_user.id} }
+        f.json { render json: @user }
       end
     else
       respond_to do |f|
