@@ -7,6 +7,11 @@ class PicturesController < ApplicationController
     else
       @pictures = Picture.most_recent
     end
+    respond_to do |f|
+      f.html { render :index }
+      f.json { render json: @pictures }
+    end
+
   end
 
   def create
