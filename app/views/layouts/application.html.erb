@@ -7,11 +7,11 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body >
+  <body class="<%= controller_name %>_<%= action_name %>">
 
     <ul class="navBar">
       <!-- Collages could be substituted for Home -->
-      <li class="barContent"><%= link_to "Collages", user_pictures_path(current_user) if current_user%></li>
+      <li class="barContent"><%= link_to "Collages", pictures_path if user_signed_in?%></li>
       <!-- Portraits could be substituted for Profile or Collection -->
       <li class="barContent"><%= link_to "Portrait", current_user if current_user%></li>
       <li class="barContent"><a href="#contact">Friend Requests</a></li>
