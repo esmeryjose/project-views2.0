@@ -19,5 +19,10 @@ class SearchesController < ApplicationController
     # else
     #   redirect_to user_path(current_user)
     # end
+
+  end
+
+  def searchPicture
+    
   end
 end

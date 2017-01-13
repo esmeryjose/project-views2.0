@@ -7,13 +7,19 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="<%= controller_name %>_<%= action_name %>">
+  <body class="<%= controller_name %>_<%= action_name %>" >
 
     <ul class="navBar">
       <!-- Collages could be substituted for Home -->
-      <li class="barContent"><%= link_to "Collages", pictures_path if user_signed_in?%></li>
-      <!-- Portraits could be substituted for Profile or Collection -->
-      <li class="barContent"><%= link_to "Portrait", current_user if current_user%></li>
+      <% if user_signed_in? %>
+        <li class="barContent"><%= link_to "Collages", pictures_path if user_signed_in?%></li>
+        <!-- Portraits could be substituted for Profile or Collection -->
+        <li class="barContent"><%= link_to "Portrait", current_user if current_user%></li>
+      <% else %>
+        <li class="barContent"><%= link_to "Collages"%></li>
+        <li class="barContent"><%= link_to "Portrait"%></li>
+      <% end %>
+
       <li class="barContent"><a href="#contact">Friend Requests</a></li>
       <% if current_user %>
       <li class="barContent"><%= link_to "Log Out", destroy_user_session_path, method: :delete%></li>
@@ -22,11 +28,11 @@
       <% end %>
       <!-- look into where like ActiveRecord -->
       <li class="barContent">
-        <%= form_tag new_search_path, :method => 'get' do %>
+        <%= form_tag searchPicture_path, :method => 'get', id:"searchForm"  do %>
           <p>
             <%= text_field_tag :type, params[:type] %>
             <%= select_tag(:search, options_for_select([['Location'], ['User'],['Tag']])) %>
-            <%= submit_tag "Search"%>
+            <%= submit_tag "Search", id: "searchSubmit"%>
           </p>
         <% end %>
       </li>
@@ -35,7 +41,13 @@
     <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
     <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
 
+  <br>
+  <div class="errors">
+  </div>
 
+  <div id="yield">
     <%= yield %>
+  </div>
+
   </body>
 </html>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :pictures, only: [:show, :index]
   end
 
-  resources :searches
+  resources :searches, only: [:index]
+  post '/searchPicture', to: 'searches#searchPicture'
   root'users#index'
 end
