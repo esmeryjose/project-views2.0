@@ -11,5 +11,4 @@ Rails.application.routes.draw do
 
   resources :searches, only: [:index]
   post '/searchPicture', to: 'searches#searchPicture'
-  root'users#index'
 end
