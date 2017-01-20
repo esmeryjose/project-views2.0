@@ -23,12 +23,11 @@ class SearchesController < ApplicationController
   end
 
   def searchPicture
-    binding.pry
     @search = find_search(params[:type],params[:search])
     if @search
       render json: @search
     else
-      render json: {"#{params[:search]}": "does not exist" }, status: 422
+      render json: {"#{params[:type]}": "does not exist"} , status: 422
     end
 
   end
