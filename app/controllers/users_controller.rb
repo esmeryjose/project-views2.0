@@ -1,12 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only:[:show]
+  before_action :user_attr, only:[:show]
   def index
     # @users = User.all
   end
 
   def show
-    @picture = Picture.new
-    # @pictures = current_user.pictures
     if @user
       respond_to do |f|
         f.html { render :show }
@@ -22,7 +20,9 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user
+  def user_attr
     @user = User.find_by(id: params[:id])
+    @picture = Picture.new
+    @location = Location.new(title:"", address:"")
   end
 end

@@ -16,31 +16,33 @@ class PicturesController < ApplicationController
 
   def create
     @picture = Picture.new(picture_params)
-    if helpers.both_location?(picture_params)
-      @picture.errors.messages[:bad_location] = ["Can only choose one location"]
-    end
-    # if @picture.errors.any?
-    #   @pictures = current_user.pictures
-    #   render "users/show"
-    # else
-    if @picture.save
-      render json: @picture
-    else
-      # render json: errors: @picture.errors.messages, status: 422
+    if @picture.errors.any? || !@picture.save
       render json: @picture.errors.messages, status: 422
+    else
+      @picture.save
+      render json: @picture
     end
-
   end
 
   def show
   end
 
   def edit
+    respond_to do |f|
+      f.html { render :edit }
+      f.json { render :edit }
+    end
   end
 
   def update
-    @picture.update(picture_params)
-    redirect_to user_path(current_user)
+
+    @picture.assign_attributes(picture_params)
+    if @picture.errors.any? || !@picture.save
+      render json: @picture.errors.messages, status: 422
+    else
+      @picture.save
+      render json: @picture
+    end
   end
 
   def destroy
@@ -52,6 +54,13 @@ class PicturesController < ApplicationController
 
   def set_picture
     @picture = Picture.find_by(id: params[:id])
+    if params[:action] == "edit"
+      set_location
+    end
+  end
+
+  def set_location
+    @location = @picture.location
   end
 
   def picture_params

@@ -13,7 +13,13 @@ class Picture < ApplicationRecord
 
   def location_attributes=(attributes)
     if attributes[:title] != "" && attributes[:address] != ""
-      self.location = Location.find_or_create_by(attributes)
+      if self.location
+        self.errors.messages[:bad_location] = ["can only choose one location"]
+      else
+        self.location = Location.find_or_create_by(attributes)
+      end
+    elsif one_blank(attributes)
+      self.errors.messages[:bad_location] = ["location must contain a title and an address"]
     end
   end
 
@@ -22,6 +28,15 @@ class Picture < ApplicationRecord
       attributes.values.each do |key|
         self.tags << Tag.find_or_create_by(key)
       end
+    end
+  end
+
+  def one_blank(attributes)
+    if (attributes[:title] != "" && attributes[:address] == "") ||
+      (attributes[:title] == "" && attributes[:address] != "")
+      true
+    else
+      false
     end
   end
 

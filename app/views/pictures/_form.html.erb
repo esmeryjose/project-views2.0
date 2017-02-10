@@ -8,9 +8,9 @@
   <%= f.label "Create Location:" %><br>
   <%= f.fields_for :location, picture.build_location do |i| %>
     <%= i.label :title %>
-    <%= i.text_field :title %><br>
+    <%= i.text_field :title, value: @location.title %><br>
     <%= i.label :address %>
-    <%= i.text_field :address %>
+    <%= i.text_field :address, value: @location.address %>
   <% end %><br><br>
   Select Existing Location:<br>
   <%= f.collection_select :location_id, Location.all, :id, :title, :include_blank => true %><br><br>
@@ -29,3 +29,4 @@
   <% end %>
 
 <% end %>
+<input type="hidden" name="parseForm">
