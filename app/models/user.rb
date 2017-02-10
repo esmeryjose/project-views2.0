@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
   has_many :comments, through: :pictures
   has_many :pictures, dependent: :destroy
+  has_many :follows
+  has_many :following, through: :follows, source: :followees
+  has_many :followers, through: :follows, source: :user
   #so that you edit your own comments, use scope for this
   # has_many :said_comments, through: :post_pictures, source: :users
 
