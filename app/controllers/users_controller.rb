@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :user_attr, only:[:show]
   def index
-    # @users = User.all
   end
 
   def show
@@ -16,6 +15,10 @@ class UsersController < ApplicationController
         f.json { render json: {user: "does not exist"}, status: 422}
       end
     end
+  end
+
+  def follower_requests
+
   end
 
   private

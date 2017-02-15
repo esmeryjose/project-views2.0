@@ -18,11 +18,15 @@ class SearchesController < ApplicationController
   def find_search(typeParams,searchParams)
     case searchParams
     when "Location"
+      # search = "%#{typeParams}%"
+      # @searchParams = Location.where("title LIKE ?", search)
       @searchParams = Location.find_by(title: typeParams)
     when "User"
-      @searchParams = User.find_by(name: typeParams)
+      search = "%#{typeParams}%"
+      @searchParams = User.where("name LIKE ?", search)
     when "Tag"
-      @searchParams = Tag.find_by(title: typeParams)
+      search = "%#{typeParams}%"
+      @searchParams = Tag.where("title LIKE ?", search)
     end
   end
 end

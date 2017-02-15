@@ -20,7 +20,7 @@
         <li class="barContent"><%= link_to "Portrait"%></li>
       <% end %>
 
-      <li class="barContent"><a href="#contact">Friend Requests</a></li>
+      <li class="barContent"><%= link_to "Requests", request_path if current_user%></li>
       <% if current_user %>
       <li class="barContent"><%= link_to "Log Out", destroy_user_session_path, method: :delete%></li>
       <% else %>

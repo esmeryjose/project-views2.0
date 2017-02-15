@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :followers
+  resources :follows
   resources :locations
   resources :tags
   resources :comments
@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :searches, only: [:index]
+
+  get '/users/:id/follower_requests', to: 'users#follower_requests', as: "request"
   post '/searchPicture', to: 'searches#searchPicture'
 end
