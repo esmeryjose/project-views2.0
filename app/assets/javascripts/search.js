@@ -1,11 +1,12 @@
-var searchData;
+var searchData, searchType;
 
 function attachSearchListener(searchAjax) {
   $("#searchForm").on('submit', function(e){
     e.preventDefault();
     searchWord = $(this).context.elements[1].value.trim();
     if (searchWord !== "") {
-      searchData = new FormData(this)
+      searchType = this.childNodes[2].children[1].value
+      searchData = new FormData(this);
       searchAjax(searchData);
     }else {
       searchData = ""
@@ -29,7 +30,11 @@ function searchAjax(data) {
     contentType: false,
     success: response=>{
       clearYield();
-      displaySearch(response);
+      if (searchType === "User") {
+        displaySearchUsers(response);
+      } else {
+        displaySearch(response);
+      }
     },
     error: error=>{
       searchWord = ""
@@ -39,50 +44,20 @@ function searchAjax(data) {
   });
 }
 
-function displaySearch(response) {
-  // You are going to get an array of objects back
-  // You will have to make a title div to put the titles and then
-  // under the div you will have a div that will display the pictures in it
-  // there will be a title div for every object in the response array
+function displaySearchUsers(response) {
   debugger;
+}
+
+function displaySearch(response) {
   searchObjectId = 1;
   response.forEach(obj=>{
     if (obj.pictures.length > 0) {
-      var address = ``;
-      if (obj.address) {
-        address = `, ${obj.address}`
-      }
-      objectInfo = `${obj.title}${address}`;
-
-      responseDiv = `
-      <div id="searchObject${searchObjectId}" class="searchObject">
-        <h2 class="objectInfo">${objectInfo}</h2>
-        <div id="picturesSearched${searchObjectId}"  class="picturesSearched">
-        </div>
-      </div>
-      <br>---------------------------------
-        --------------------------------------------------------------------<br>
-      `;
-      $('#yield').prepend(responseDiv);
-
-      displaySearchPictures(obj.pictures,`picturesSearched${searchObjectId}`);
-
+      locationTag = new LocationTag(obj, searchObjectId)
+      locationTag.displayObject();
       searchObjectId +=1;
     }
   });
 
-}
-
-function displaySearchPictures(pictures,id) {
-  pictures.forEach(pic=>{
-    var photo = new Picture(pic);
-    photo.displayPicture(id);
-  });
-
-}
-
-function clearYield(){
-  $('#yield').html("");
 }
 
 $(document).on('turbolinks:load',()=>{

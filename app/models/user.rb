@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :comments, through: :pictures
   has_many :pictures, dependent: :destroy
 
-  # has_many :follows
+  has_many :follows
   # has_many :followers, through: :follows, source: :followees
   # has_many :following, through: :follows, source: :followed
 
@@ -19,12 +19,18 @@ class User < ActiveRecord::Base
 
 
 
-
   has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'
   has_many :followers, through: :follower_relationships, source: :follower
 
+  has_many :pending, -> { where(follows: {request: false}) },
+          through: :following_relationships, source: :following
+
   has_many :following_relationships, foreign_key: :user_id, class_name: 'Follow'
-  has_many :following, through: :following_relationships, source: :following
+  has_many :following, -> { where(follows: {request: true}) },
+          through: :following_relationships, source: :following
+
+
+
 
   #so that you edit your own comments, use scope for this
   # has_many :said_comments, through: :post_pictures, source: :users

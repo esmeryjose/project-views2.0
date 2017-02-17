@@ -1,28 +1,5 @@
 var currentUserId, theNewForm;
 
-class Error {
-
-  constructor(errorObject) {
-    this.errorsArray = [];
-    this.errorObject = errorObject ;
-  }
-
-  getMessages(){
-    for (var key in this.errorObject) {
-      this.errorsArray.push(`${key}: ${this.errorObject[key]}`)
-    }
-    return this.errorsArray;
-  }
-
-  displayErrors(){
-    var errorList = "";
-    this.getMessages().forEach(v=>{
-      errorList+=`<li>${v}</li>`
-    })
-    $('.errors').html(errorList);
-  }
-}
-
 class Picture {
   constructor(responseObject) {
     this.id = responseObject.id;
@@ -34,14 +11,9 @@ class Picture {
   }
 
   pictureStructure(){
-    // this method defines the structure of the picture
-    // it will get called by displayPicture and displaySearchPicture
-    // it should return the string with the html of the picture
     var htmlButton = "";
     // this is the route for the delete button action='/pictures/${this.id}' method="post"
     if (currentUserId === this.user.id) {
-      // <input type="submit" value="edit">
-      //   <input type="submit" value="delete">
       htmlButton = `
         <button class="editButton ${this.id}">Edit</button>
         <button class="deleteButton ${this.id}">Delete</button>
@@ -58,7 +30,6 @@ class Picture {
         <br><br>
       </div>
     `
-
     return htmlPicture
   }
 
@@ -66,29 +37,6 @@ class Picture {
     $(`#${id}`).prepend(this.pictureStructure());
   }
 
-}
-
-class User{
-  constructor(responseObject){
-    this.id = responseObject.id;
-    this.name = responseObject.name;
-    this.email = responseObject.email;
-    this.quote = responseObject.quote;
-    this.pictures = responseObject.pictures;
-  }
-
-  displayUser(){
-    var htmlUserInfo = `
-      <h1>${this.name}</h1>
-      <h2>${this.email}</h2>
-    `
-    $('.userInfo').append(htmlUserInfo);
-
-    this.pictures.forEach(pic=>{
-      var photo = new Picture(pic)
-      photo.displayPicture("thePictures");
-    });
-  }
 }
 
 function formSubmit() {
@@ -100,6 +48,7 @@ function formSubmit() {
     var formClass = this.className;
     var submitButtonId = this.children.submitButton.id
     var newData = new FormData(this);
+    
     $.ajax({
       type: "POST",
       url: url,
@@ -158,30 +107,11 @@ function postEditPicture() {
   }
 }
 
-function getUser() {
-  $.ajax({
-    url: getRoute(),
-    method: "GET",
-    dataType: "json",
-    success: response=>{
-      currentUserId = response.current_user_id
-      var user = new User(response)
-      user.displayUser();
-    },
-    error: error=>{
-      var failResponse = new Error(error.responseJSON);
-      failResponse.displayErrors();
-    }
+function displayPictureCollection(pictures,id) {
+  pictures.forEach(pic=>{
+    var photo = new Picture(pic);
+    photo.displayPicture(id);
   });
-}
-
-function getRoute() {
-  return window.location.href.toString().split(window.location.host)[1]
-}
-
-function clearForm(formId, submitButtonId) {
-  $(`#${formId}`)[0].reset();
-  $(`#${submitButtonId}`).prop('disabled',false);
 }
 
 $( document ).on('turbolinks:load', ()=> {
@@ -189,6 +119,5 @@ $( document ).on('turbolinks:load', ()=> {
     searchData ="";
     theNewForm = $("#nestedForm")[0];
     formSubmit();
-    getUser();
   }
 })

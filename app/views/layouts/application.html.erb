@@ -31,7 +31,7 @@
         <%= form_tag searchPicture_path, :method => 'get', id:"searchForm"  do %>
           <p>
             <%= text_field_tag :type, params[:type] %>
-            <%= select_tag(:search, options_for_select([['Location'], ['User'],['Tag']])) %>
+            <%= select_tag(:search, options_for_select([['User'], ['Location'],['Tag']])) %>
             <%= submit_tag "Search", id: "searchSubmit"%>
           </p>
         <% end %>
