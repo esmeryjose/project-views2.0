@@ -7,8 +7,38 @@ class User{
     this.pictures = responseObject.pictures;
   }
 
-  displaySearchUser(){
+  makeButton(availability){
+    var buttonName;
+    switch (availability) {
+      case "not following":
+        buttonName = "Follow";
+        break;
 
+      case "resquest sent":
+        buttonName = "Cancel Request";
+        break;
+
+      case "following":
+        buttonName = "Unfollow";
+        break;
+      default:
+    }
+
+    return `<button class="searchUserButton ${this.id}">${buttonName}</button>`;
+  }
+
+  displaySearchUser(availability){
+    var button= "";
+    if (this.id !== currentUserId) {
+      button = this.makeButton(availability);
+    }
+    var theDivs = `
+      <div class = "searchU">
+        <a href="/users/${this.id}">${this.name}</a>${button}
+      <div>
+      <br><br>
+    `
+    $('#yield').prepend(theDivs);
   }
 
   displayUser(){

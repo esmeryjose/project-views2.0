@@ -1,9 +1,9 @@
 class LocationTag{
-  constructor(obj,searchObjectId){
+  constructor(obj){
     this.title = obj.title;
     obj.address ? this.address = `, ${obj.address}` : this.address = "";
     this.pictures = obj.pictures;
-    this.searchObjectId = searchObjectId;
+    // this.searchObjectId = searchObjectId;
   }
 
   htmlStructure(){
@@ -11,9 +11,9 @@ class LocationTag{
     var objectInfo = `${this.title}${this.address}`;
 
     var htmlObject = `
-      <div id="searchObject${this.earchObjectId}" class="searchObject">
+      <div class="searchObject">
         <h2 class="objectInfo">${objectInfo}</h2>
-        <div id="picturesSearched${this.searchObjectId}"  class="picturesSearched">
+        <div id="picturesSearched${this.id}"  class="picturesSearched">
         </div>
       </div>
       <br>------------------------------------------------------------------<br>
@@ -24,7 +24,7 @@ class LocationTag{
   }
   displayObject(){
     $('#yield').prepend(this.htmlStructure());
-    displayPictureCollection(this.pictures, `picturesSearched${this.searchObjectId}`);
+    displayPictureCollection(this.pictures, `picturesSearched${this.id}`);
   }
 
 }

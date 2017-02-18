@@ -18,7 +18,17 @@ class UsersController < ApplicationController
   end
 
   def follower_requests
+  end
 
+  def association
+    associating_user = User.find_by(id: params[:otherUserId])
+    if params[:relation] == "delete"
+      current_user.following.delete(associating_user)
+      render json: {"user": "was deleted"}
+    else
+      Follow.create(user_id: current_user.id, following_id: associating_user.id, request: false)
+      render json: {"user": "request was sent"}
+    end
   end
 
   private

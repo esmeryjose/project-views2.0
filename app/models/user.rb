@@ -8,16 +8,6 @@ class User < ActiveRecord::Base
   has_many :pictures, dependent: :destroy
 
   has_many :follows
-  # has_many :followers, through: :follows, source: :followees
-  # has_many :following, through: :follows, source: :followed
-
-  # has_many :followers, through: :follows, source: :followed
-
-
-  # this
-  # has_many :following, through: :follows, source: :followees
-
-
 
   has_many :follower_relationships, foreign_key: :following_id, class_name: 'Follow'
   has_many :followers, through: :follower_relationships, source: :follower

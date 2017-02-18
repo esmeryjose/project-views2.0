@@ -5,17 +5,17 @@ function attachSearchListener(searchAjax) {
     e.preventDefault();
     searchWord = $(this).context.elements[1].value.trim();
     if (searchWord !== "") {
-      searchType = this.childNodes[2].children[1].value
+      searchType = this.childNodes[2].children[1].value;
       searchData = new FormData(this);
       searchAjax(searchData);
     }else {
-      searchData = ""
+      searchData = "";
       var error = new Error({search: "can't be blank"})
       error.displayErrors();
     }
     // this clears the form and also
     // returns false so that the search button unclicks
-    $("#searchForm")[0].elements[1].value = ""
+    $("#searchForm")[0].elements[1].value = "";
     return false;
   });
 
@@ -45,7 +45,11 @@ function searchAjax(data) {
 }
 
 function displaySearchUsers(response) {
-  debugger;
+  var someUser
+  response.forEach(object=>{
+    someUser = new User(object.user)
+    someUser.displaySearchUser(object.availability)
+  });
 }
 
 function displaySearch(response) {
@@ -60,7 +64,51 @@ function displaySearch(response) {
 
 }
 
+function attachUserButtonListerner() {
+  $('#yield').on("click",".searchUserButton", function (e) {
+    debugger;
+    var url =`/users/${currentUserId}/`;
+    var otherUserId = this.className.split(" ")[1];
+    var data = {"otherUserId":`${otherUserId}`};
+    var relation = this.innerText;
+    var userDivClass = this.className;
+
+    if (relation == "Follow") {
+      data["relation"] = "follow"
+      association(url,data,userDivClass);
+    } else {
+      data["relation"] = "delete"
+      association(url,data,userDivClass);
+    }
+
+  });
+}
+
+function association(url,data,userDivClass) {
+  url = url + "initiateAssociation"
+
+  $.ajax({
+    url: url,
+    method: 'POST',
+    data: data,
+    success: response=>{
+      if (response.user === "request was sent") {
+        div = userDivClass.replace(" ",".");
+        $(`.${div}`)[0].innerHTML = "Cancel Request";
+      } else {
+        div = userDivClass.replace(" ",".");
+        $(`.${div}`)[0].innerHTML ="Follow";
+      }
+
+    },
+    error: error=>{
+      debugger;
+    }
+  });
+}
+
 $(document).on('turbolinks:load',()=>{
+  attachUserButtonListerner();
   formSubmit();
   attachSearchListener(searchAjax);
 });
