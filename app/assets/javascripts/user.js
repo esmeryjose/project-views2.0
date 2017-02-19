@@ -8,33 +8,44 @@ class User{
   }
 
   makeButton(availability){
-    var buttonName;
-    switch (availability) {
-      case "not following":
-        buttonName = "Follow";
+    var buttons = "";
+    availability.forEach(name=>{
+      switch (name) {
+        case "not following":
+        buttons += `<button class="userButton ${this.id}">Follow</button>`;
         break;
 
-      case "resquest sent":
-        buttonName = "Cancel Request";
+        case "resquest sent":
+        buttons += `<button class="userButton ${this.id}">Cancel Request</button>`;
         break;
 
-      case "following":
-        buttonName = "Unfollow";
+        case "following":
+        buttons += `<button class="userButton ${this.id}">Unfollow</button>`;
         break;
-      default:
-    }
 
-    return `<button class="searchUserButton ${this.id}">${buttonName}</button>`;
+        case "accept":
+        buttons += `<button class="userButton ${this.id}">Accept</button>`;
+        break;
+
+        case "decline":
+        buttons += `<button class="userButton ${this.id}">Decline</button>`;
+        break;
+
+        default:
+      }
+    })
+
+    return buttons;
   }
 
-  displaySearchUser(availability){
-    var button= "";
+  makeUser(arrayButtonDesign){
+    var buttons= "";
     if (this.id !== currentUserId) {
-      button = this.makeButton(availability);
+      buttons = this.makeButton(arrayButtonDesign);
     }
     var theDivs = `
-      <div class = "searchU">
-        <a href="/users/${this.id}">${this.name}</a>${button}
+      <div class = "searchU ${this.id}">
+        <a href="/users/${this.id}">${this.name}</a>${buttons}
       <div>
       <br><br>
     `
@@ -57,7 +68,6 @@ function getUser() {
     method: "GET",
     dataType: "json",
     success: response=>{
-      currentUserId = response.current_user_id
       var user = new User(response)
       user.displayUser();
     },
@@ -69,6 +79,7 @@ function getUser() {
 }
 
 $( document ).on('turbolinks:load', ()=> {
+  currentUserId = $('#currentUserId')[0].value
   if ($(".users_show").length) {
     getUser();
   }

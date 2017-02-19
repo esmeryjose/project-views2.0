@@ -48,7 +48,7 @@ function displaySearchUsers(response) {
   var someUser
   response.forEach(object=>{
     someUser = new User(object.user)
-    someUser.displaySearchUser(object.availability)
+    someUser.makeUser([object.availability])
   });
 }
 
@@ -65,46 +65,49 @@ function displaySearch(response) {
 }
 
 function attachUserButtonListerner() {
-  $('#yield').on("click",".searchUserButton", function (e) {
-    debugger;
-    var url =`/users/${currentUserId}/`;
-    var otherUserId = this.className.split(" ")[1];
-    var data = {"otherUserId":`${otherUserId}`};
-    var relation = this.innerText;
-    var userDivClass = this.className;
+  $('#yield').on("click",".userButton", function (e) {
+    e.stopImmediatePropagation();
+    var url =`/users/${currentUserId}/association`,
+      otherUserId = this.className.split(" ")[1],
+      data = {"otherUserId":`${otherUserId}`},
+      relation = this.innerText,
+      userButtonClass = this.className;
 
-    if (relation == "Follow") {
-      data["relation"] = "follow"
-      association(url,data,userDivClass);
-    } else {
-      data["relation"] = "delete"
-      association(url,data,userDivClass);
-    }
+    data["relation"] = relation;
+    association(url,data,userButtonClass);
 
   });
 }
 
-function association(url,data,userDivClass) {
-  url = url + "initiateAssociation"
-
+function association(url,data,userButtonClass) {
   $.ajax({
     url: url,
     method: 'POST',
     data: data,
     success: response=>{
-      if (response.user === "request was sent") {
-        div = userDivClass.replace(" ",".");
-        $(`.${div}`)[0].innerHTML = "Cancel Request";
-      } else {
-        div = userDivClass.replace(" ",".");
-        $(`.${div}`)[0].innerHTML ="Follow";
-      }
-
+      associationResponse(response,userButtonClass)
     },
     error: error=>{
       debugger;
     }
   });
+}
+
+function associationResponse(response,userButtonClass) {
+  var buttonClass;
+  if (response.user === "request was sent") {
+    buttonClass = userButtonClass.replace(" ",".");
+    $(`.${buttonClass}`)[0].innerHTML = "Cancel Request";
+
+  } else if (response.user === "request was cancelled") {
+    buttonClass = userButtonClass.replace(" ",".");
+    $(`.${buttonClass}`)[0].innerHTML ="Follow";
+
+  } else {
+    var divClass = userButtonClass.replace("userButton","searchU");
+    divClass = divClass.replace(" ",".");
+    $(`.${divClass}`)[0].remove();
+  }
 }
 
 $(document).on('turbolinks:load',()=>{

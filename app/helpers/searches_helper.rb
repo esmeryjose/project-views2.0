@@ -8,17 +8,21 @@ module SearchesHelper
       else
         {availability:"not following", user: user}
       end
-      # join_table_row = Follow.where(user_id: current_user.id, following_id: user.id)
-      # if !join_table_row.empty?
-      #   if join_table_row.first.request
-      #     {availability:"following", user: user}
-      #   else
-      #     {availability:"resquest sent", user: user}
-      #   end
-      # else
-      #   # you have not sent a request and you are not following
-      #   {availability:"not following", user: user}
-      # end
+    end
+  end
+
+  def find_search(typeParams,searchParams)
+    search = "%#{typeParams}%"
+    case searchParams
+    when "Location"
+      @searchParams = Location.where("title LIKE ?", search)
+    when "User"
+      # search = "%#{typeParams}%"
+      @searchParams = User.where("name LIKE ?", search)
+      dataParser(@searchParams)
+    when "Tag"
+      # search = "%#{typeParams}%"
+      @searchParams = Tag.where("title LIKE ?", search)
     end
   end
 end

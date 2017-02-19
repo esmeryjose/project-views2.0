@@ -8,7 +8,7 @@
   </head>
 
   <body class="<%= controller_name %>_<%= action_name %>" >
-
+    <input id="currentUserId" type="hidden" value="<%= current_user.id %>">
     <ul class="navBar">
       <!-- Collages could be substituted for Home -->
       <% if user_signed_in? %>

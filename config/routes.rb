@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :searches, only: [:index]
 
-  post '/users/:id/initiateAssociation', to: 'users#association'
+  post '/users/:id/association', to: 'users#association'
   get '/users/:id/follower_requests', to: 'users#follower_requests', as: "request"
   post '/searchPicture', to: 'searches#searchPicture'
 end

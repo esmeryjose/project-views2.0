@@ -18,17 +18,18 @@ class UsersController < ApplicationController
   end
 
   def follower_requests
+    @follower_requests = current_user.follower_requests
+    respond_to do |f|
+      f.html { render :follower_requests }
+      f.json { render json: @follower_requests}
+    end
   end
 
   def association
     associating_user = User.find_by(id: params[:otherUserId])
-    if params[:relation] == "delete"
-      current_user.following.delete(associating_user)
-      render json: {"user": "was deleted"}
-    else
-      Follow.create(user_id: current_user.id, following_id: associating_user.id, request: false)
-      render json: {"user": "request was sent"}
-    end
+    response = {}
+    response[:user] = helpers.associating_hash(params[:relation], associating_user);
+    render json: response
   end
 
   private
