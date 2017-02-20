@@ -40,7 +40,8 @@ class User{
 
   makeUser(arrayButtonDesign){
     var buttons= "";
-    if (this.id !== currentUserId) {
+    var currentUserId = $('#currentUserId')[0].value
+    if (this.id != currentUserId) {
       buttons = this.makeButton(arrayButtonDesign);
     }
     var theDivs = `
@@ -79,7 +80,6 @@ function getUser() {
 }
 
 $( document ).on('turbolinks:load', ()=> {
-  currentUserId = $('#currentUserId')[0].value
   if ($(".users_show").length) {
     getUser();
   }

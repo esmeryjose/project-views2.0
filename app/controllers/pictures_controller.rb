@@ -1,19 +1,6 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [:edit, :update, :show, :destroy]
 
-  def index
-    if params[:user_id]
-      @pictures = Picture.most_recent.where({user_id: params[:user_id]})
-    else
-      @pictures = Picture.most_recent
-    end
-    respond_to do |f|
-      f.html { render :index }
-      f.json { render json: @pictures }
-    end
-
-  end
-
   def create
     @picture = Picture.new(picture_params)
     if @picture.errors.any? || !@picture.save

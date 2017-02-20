@@ -7,7 +7,7 @@ module UsersHelper
   def associating_hash(relation, associating_user)
     # if the user click the decline or cancel request button
     if relation == "Decline" || relation == "Cancel Request"
-      current_user.follower_requests.delete(associating_user)
+        current_user.follower_requests.delete(associating_user)
       relation == "Decline"?  "followed denied" : "request was cancelled"
 
     # if the user click the follow
@@ -23,4 +23,12 @@ module UsersHelper
     end
   end
 
+
+  def follower_picture_ids
+    ids=[]
+    current_user.followers.each do |user|
+      ids += user.pictures.ids
+    end
+    ids += current_user.pictures.ids
+  end
 end

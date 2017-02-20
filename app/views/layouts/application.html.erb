@@ -8,11 +8,13 @@
   </head>
 
   <body class="<%= controller_name %>_<%= action_name %>" >
-    <input id="currentUserId" type="hidden" value="<%= current_user.id %>">
+    <% if current_user %>
+      <input id="currentUserId" type="hidden" value="<%= current_user.id %>">
+    <% end %>
     <ul class="navBar">
       <!-- Collages could be substituted for Home -->
       <% if user_signed_in? %>
-        <li class="barContent"><%= link_to "Collages", pictures_path if user_signed_in?%></li>
+        <li class="barContent"><%= link_to "Collages", views_path if user_signed_in?%></li>
         <!-- Portraits could be substituted for Profile or Collection -->
         <li class="barContent"><%= link_to "Portrait", current_user if current_user%></li>
       <% else %>

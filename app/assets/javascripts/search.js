@@ -67,6 +67,7 @@ function displaySearch(response) {
 function attachUserButtonListerner() {
   $('#yield').on("click",".userButton", function (e) {
     e.stopImmediatePropagation();
+    var currentUserId = $('#currentUserId')[0].value
     var url =`/users/${currentUserId}/association`,
       otherUserId = this.className.split(" ")[1],
       data = {"otherUserId":`${otherUserId}`},

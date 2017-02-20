@@ -1,4 +1,4 @@
-var currentUserId, theNewForm;
+var theNewForm;
 
 class Picture {
   constructor(responseObject) {
@@ -12,13 +12,15 @@ class Picture {
 
   pictureStructure(){
     var htmlButton = "";
+    var currentUserId = $('#currentUserId')[0].value
     // this is the route for the delete button action='/pictures/${this.id}' method="post"
-    if (currentUserId === this.user.id) {
+    if (currentUserId == this.user.id) {
       htmlButton = `
         <button class="editButton ${this.id}">Edit</button>
         <button class="deleteButton ${this.id}">Delete</button>
       `
     }
+
 
     var htmlPicture = `
       <div class='picture ${this.id}'>
@@ -48,7 +50,7 @@ function formSubmit() {
     var formClass = this.className;
     var submitButtonId = this.children.submitButton.id
     var newData = new FormData(this);
-    
+
     $.ajax({
       type: "POST",
       url: url,
@@ -82,27 +84,24 @@ function postEditPicture() {
   if (searchData) {
     searchAjax(searchData)
   } else {
-    var location = getRoute().split("/")[1];
-    switch (location) {
-      case "users":
-        var userShow = `
-          <div class="userInfo">
-          </div>
-          <br>
-          ${theNewForm.innerHTML}
-          <br><br><br><br>
-          <div id="thePictures">
-          </div>
-        `;
-        $("#yield").html(`${userShow}`);
-        getUser();
-        break;
-      case "pictures":
-        $("#yield").html("<div id='indexPictures'></div>");
-        getIndexPictures();
-        break;
-      default:
 
+    var location = getRoute().split("/")[3];
+
+    if (location !== "views") {
+      var userShow = `
+        <div class="userInfo">
+        </div>
+        <br>
+        ${theNewForm.innerHTML}
+        <br><br><br><br>
+        <div id="thePictures">
+        </div>
+      `;
+      $("#yield").html(`${userShow}`);
+      getUser();
+    } else {
+      $("#yield").html("<div id='indexPictures'></div>");
+      getIndexPictures();
     }
   }
 }
@@ -116,7 +115,7 @@ function displayPictureCollection(pictures,id) {
 
 $( document ).on('turbolinks:load', ()=> {
   if ($(".users_show").length) {
-    searchData ="";
+    searchData ="";``
     theNewForm = $("#nestedForm")[0];
     formSubmit();
   }

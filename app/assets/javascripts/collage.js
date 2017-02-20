@@ -14,7 +14,7 @@ function getIndexPictures() {
 }
 
 function collageDisplay(picturesArray){
-  currentUserId = picturesArray[0].user.current_user_id
+  // currentUserId = picturesArray[0].user.current_user_id
   picturesArray.forEach(pic=>{
     // user = new User(pic.user)
     photo = new Picture(pic)
@@ -23,7 +23,7 @@ function collageDisplay(picturesArray){
 }
 
 $(document).on('turbolinks:load', ()=> {
-    if ($(".pictures_index").length) {
+    if ($(".users_views").length) {
       searchData ="";
       formSubmit();
       getIndexPictures();

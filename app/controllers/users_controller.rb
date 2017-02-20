@@ -1,17 +1,23 @@
 class UsersController < ApplicationController
   before_action :user_attr, only:[:show]
-  def index
+
+  def views
+    ids = helpers.follower_picture_ids
+    if params[:id]
+      @pictures = Picture.picture_collector(ids).most_recent
+    end
+    respond_to do |f|
+      f.html { render :views }
+      f.json { render json: @pictures }
+    end
   end
 
   def show
-    if @user
-      respond_to do |f|
-        f.html { render :show }
+    respond_to do |f|
+      f.html { render :show }
+      if @user
         f.json { render json: @user }
-      end
-    else
-      respond_to do |f|
-        f.html { render :show }
+      else
         f.json { render json: {user: "does not exist"}, status: 422}
       end
     end
@@ -28,7 +34,7 @@ class UsersController < ApplicationController
   def association
     associating_user = User.find_by(id: params[:otherUserId])
     response = {}
-    response[:user] = helpers.associating_hash(params[:relation], associating_user);
+    response[:user] = helpers.associating_hash(params[:relation], associating_user)
     render json: response
   end
 

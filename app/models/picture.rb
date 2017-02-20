@@ -7,9 +7,8 @@ class Picture < ApplicationRecord
   belongs_to :location
   validates :avatar, presence: :true
 
-  scope :by_location, -> location {all.select{|pic| pic.location.title == location}}
   scope :most_recent, -> { order(created_at: :asc)}
-
+  scope :picture_collector, -> ids {where(id: ids)}
 
   def location_attributes=(attributes)
     if attributes[:title] != "" && attributes[:address] != ""
