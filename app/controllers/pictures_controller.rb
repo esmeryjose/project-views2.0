@@ -12,6 +12,12 @@ class PicturesController < ApplicationController
   end
 
   def show
+    @comment = Comment.new(picture: @picture, user: current_user)
+    respond_to do |f|
+      f.html { render :show }
+      f.json { render json: @picture}
+    end
+
   end
 
   def edit

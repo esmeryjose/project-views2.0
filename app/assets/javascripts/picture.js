@@ -11,8 +11,9 @@ class Picture {
   }
 
   pictureStructure(){
-    var htmlButton = "";
-    var currentUserId = $('#currentUserId')[0].value
+    var htmlButton = "",
+        route = `/users/${this.user.id}/pictures/${this.id}`,
+        currentUserId = $('#currentUserId')[0].value
     // this is the route for the delete button action='/pictures/${this.id}' method="post"
     if (currentUserId == this.user.id) {
       htmlButton = `
@@ -26,7 +27,7 @@ class Picture {
       <div class='picture ${this.id}'>
         ${this.title || ''}<br>
         ${this.location.title}, ${this.location.address}<br>
-        <a href='users/${this.user.id}/pictures/${this.id}'><img src='${this.avatar.url}'></a>
+        <img class='showPicture ${route}' src='${this.avatar.url}'></a>
         <br>
         ${htmlButton}
         <br><br>
@@ -101,7 +102,7 @@ function postEditPicture() {
       getUser();
     } else {
       $("#yield").html("<div id='indexPictures'></div>");
-      getIndexPictures();
+      pictureAjax();
     }
   }
 }

@@ -13,7 +13,7 @@ function editClicked() {
         replaceYield(editForm);
       },
       error: error=>{
-        debugger;
+
       }
     })
 
@@ -22,7 +22,6 @@ function editClicked() {
 
 function replaceYield(editForm) {
   // theYield = document.getElementById("yield").cloneNode(true);
-  // debugger;
   $('#yield').html(editForm);
 }
 

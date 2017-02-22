@@ -58,6 +58,8 @@ class User{
       <h1>${this.name}</h1>
       <h2>${this.email}</h2>
     `
+    $('.userInfo').html("")
+    $(`#thePictures`).html("")
     $('.userInfo').append(htmlUserInfo);
     displayPictureCollection(this.pictures,"thePictures")
   }

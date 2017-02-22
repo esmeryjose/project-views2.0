@@ -18,7 +18,6 @@ function attachSearchListener(searchAjax) {
     $("#searchForm")[0].elements[1].value = "";
     return false;
   });
-
 }
 
 function searchAjax(data) {
@@ -89,7 +88,6 @@ function association(url,data,userButtonClass) {
       associationResponse(response,userButtonClass)
     },
     error: error=>{
-      debugger;
     }
   });
 }

@@ -8,7 +8,6 @@ function getRequests() {
       createRequestUser(response)
     },
     error: error=>{
-      debugger;
     }
   })
 }

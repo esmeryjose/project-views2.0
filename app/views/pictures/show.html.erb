@@ -1,1 +1,9 @@
-<%= render partial: "picture", locals: {picture: @picture} %>
+<div id="thePicture">
+</div>
+
+<%= form_for @comment, :html => { id:"commentForm" } do |f| %>
+<%= f.hidden_field :picture_id %>
+<%= f.hidden_field :user_id %>
+<%= f.text_field :content %>
+<%= f.submit "comment" %>
+<% end %>
