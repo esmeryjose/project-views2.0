@@ -1,7 +1,8 @@
 function showPictureDisplay(picture) {
   clearYield();
-  photo = new Picture(picture)
+  photo = new Picture(picture);
   photo.displayPicture("yield");
+  photo.makeComments();
 }
 
 function isShowPage(route){

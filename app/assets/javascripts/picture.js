@@ -8,29 +8,62 @@ class Picture {
     this.tags = responseObject.tags;
     this.user = responseObject.user;
     this.location = responseObject.location;
+    this.comments = responseObject.comments
+  }
+
+  makeButton(){
+    var currentUserId = $('#currentUserId')[0].value
+    if (currentUserId == this.user.id) {
+
+    }
+    return (`
+      <button class="editButton ${this.id}">Edit</button>
+      <button class="deleteButton ${this.id}">Delete</button>
+    `)
+  }
+
+  makeComments(){
+    var commentsHtml = "";
+
+    if (this.comments) {
+      commentsHtml = this.comments.map((comment)=>{
+        return (
+          `
+            <div class="comment ${comment.id}">
+              <a href="/users/${comment.user.id}">${comment.user.name}:</a> ${comment.content}
+              <br><br>
+            </div>
+          `
+            )
+          })
+    }
+    $(".commentsBlock").html(commentsHtml);
+  }
+
+  commentsForm(){
+    
+
   }
 
   pictureStructure(){
-    var htmlButton = "",
-        route = `/users/${this.user.id}/pictures/${this.id}`,
-        currentUserId = $('#currentUserId')[0].value
+    var htmlButton, route = `/users/${this.user.id}/pictures/${this.id}`;
     // this is the route for the delete button action='/pictures/${this.id}' method="post"
-    if (currentUserId == this.user.id) {
-      htmlButton = `
-        <button class="editButton ${this.id}">Edit</button>
-        <button class="deleteButton ${this.id}">Delete</button>
-      `
-    }
-
-
+    htmlButton = this.makeButton();
     var htmlPicture = `
-      <div class='picture ${this.id}'>
-        ${this.title || ''}<br>
-        ${this.location.title}, ${this.location.address}<br>
-        <img class='showPicture ${route}' src='${this.avatar.url}'></a>
-        <br>
-        ${htmlButton}
-        <br><br>
+      <div class="pictureBlock">
+        <div class='picture ${this.id}'>
+          ${this.title || ''}<br>
+          ${this.location.title}, ${this.location.address}<br>
+          <img class='showPicture ${route}' src='${this.avatar.url}'></a>
+          <br>
+          ${htmlButton}
+          <br><br>
+        </div>
+        <div class="commentsBlock">
+        </div>
+        <div class="commentsForm">
+        </div>
+
       </div>
     `
     return htmlPicture

@@ -7,7 +7,6 @@ function pictureAjax(x) {
     method: "GET",
     dataType: "json",
     success: response=>{
-      debugger;
       if (isShowPage(route)) {
         showPictureDisplay(response);
       } else {
