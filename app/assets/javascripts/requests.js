@@ -1,4 +1,5 @@
 function getRequests() {
+  currentUserId = theCurrentUserId();
   var url = `/users/${currentUserId}/follower_requests`
   $.ajax({
     url:url,

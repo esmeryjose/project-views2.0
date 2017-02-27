@@ -40,7 +40,7 @@ class User{
 
   makeUser(arrayButtonDesign){
     var buttons= "";
-    var currentUserId = $('#currentUserId')[0].value
+    var currentUserId = theCurrentUserId();
     if (this.id != currentUserId) {
       buttons = this.makeButton(arrayButtonDesign);
     }

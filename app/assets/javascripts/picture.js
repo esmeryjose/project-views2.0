@@ -12,18 +12,20 @@ class Picture {
   }
 
   makeButton(){
-    var currentUserId = $('#currentUserId')[0].value
+    var currentUserId = theCurrentUserId(), buttons ="";
     if (currentUserId == this.user.id) {
-
+      buttons = `
+        <button class="editButton ${this.id}">Edit</button>
+        <button class="deleteButton ${this.id}">Delete</button>
+        <br>
+      `
     }
-    return (`
-      <button class="editButton ${this.id}">Edit</button>
-      <button class="deleteButton ${this.id}">Delete</button>
-    `)
+    return buttons
   }
 
   makeComments(){
-    var commentsHtml = "";
+    var commentsHtml,
+        allComments = "<div class='allComments'></div>";
 
     if (this.comments) {
       commentsHtml = this.comments.map((comment)=>{
@@ -31,18 +33,31 @@ class Picture {
           `
             <div class="comment ${comment.id}">
               <a href="/users/${comment.user.id}">${comment.user.name}:</a> ${comment.content}
-              <br><br>
             </div>
+            <br>
           `
-            )
-          })
+        )
+      });
+      commentsHtml = commentsHtml.reverse().join("")
+      allComments = `<div class='allComments'>${commentsHtml}</div>`;
     }
-    $(".commentsBlock").html(commentsHtml);
+    return allComments;
   }
 
   commentsForm(){
-    
+    var form = `
+    <form action="/comments" method="post" id="commentsForm">
+      <input type="text" name="comments[content]">
+      <input type="hidden" name="comments[picture_id]" value="${this.id}">
+      <input type="submit" value="Submit">
+    </form>
+    `;
+    return form;
+  }
 
+  commentsBlock(){
+    var theBlock = `${this.makeComments()}${this.commentsForm()}`
+    $(".commentsBlock").html(theBlock)
   }
 
   pictureStructure(){
@@ -61,9 +76,6 @@ class Picture {
         </div>
         <div class="commentsBlock">
         </div>
-        <div class="commentsForm">
-        </div>
-
       </div>
     `
     return htmlPicture

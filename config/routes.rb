@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
     resources :pictures, only: [:show]
   end
-
   resources :searches, only: [:index]
 
+  root 'welcome#index'
   get '/users/:id/views', to: 'users#views', as: "views"
   post '/users/:id/association', to: 'users#association'
   get '/users/:id/follower_requests', to: 'users#follower_requests', as: "request"

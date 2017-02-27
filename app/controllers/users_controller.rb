@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :user_attr, only:[:show]
 
   def views
-    ids = helpers.follower_picture_ids
+    ids = helpers.following_picture_ids
     if params[:id]
       @pictures = Picture.picture_collector(ids).most_recent
     end

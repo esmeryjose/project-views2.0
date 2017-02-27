@@ -24,9 +24,9 @@ module UsersHelper
   end
 
 
-  def follower_picture_ids
+  def following_picture_ids
     ids=[]
-    current_user.followers.each do |user|
+    current_user.following.each do |user|
       ids += user.pictures.ids
     end
     ids += current_user.pictures.ids

@@ -33,3 +33,7 @@ function clearForm(formId, submitButtonId) {
 function clearYield(){
   $('#yield').html("");
 }
+
+function theCurrentUserId(){
+  return $('#currentUserId')[0].value;
+}

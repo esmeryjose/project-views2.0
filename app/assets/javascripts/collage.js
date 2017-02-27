@@ -21,9 +21,7 @@ function pictureAjax(x) {
 }
 
 function collageDisplay(picturesArray){
-  // currentUserId = picturesArray[0].user.current_user_id
   picturesArray.forEach(pic=>{
-    // user = new User(pic.user)
     photo = new Picture(pic)
     photo.displayPicture("indexPictures");
   });
