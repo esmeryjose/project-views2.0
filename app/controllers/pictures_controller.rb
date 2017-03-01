@@ -39,8 +39,9 @@ class PicturesController < ApplicationController
   end
 
   def destroy
+    response = {picture:"picture.#{@picture.id}"}
     @picture.destroy
-    redirect_to user_path(current_user)
+    render json: response
   end
 
   private

@@ -143,10 +143,13 @@ function postEditPicture() {
         <div id="thePictures">
         </div>
       `;
-      $("#yield").html(`${userShow}`);
+      // $("#yield").html(`${userShow}`);
+      interactYield(userShow,"replace")
       getUser();
     } else {
-      $("#yield").html("<div id='indexPictures'></div>");
+      // $("#yield").html("<div id='indexPictures'></div>");
+      var content = "<div id='indexPictures'></div>";
+      interactYield(content,"replace")
       pictureAjax();
     }
   }

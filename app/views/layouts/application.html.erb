@@ -3,42 +3,44 @@
   <head>
     <title>Views</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body class="<%= controller_name %>_<%= action_name %>" >
-    <% if current_user %>
-      <input id="currentUserId" type="hidden" value="<%= current_user.id %>">
-    <% end %>
-    <ul class="navBar">
-      <!-- Collages could be substituted for Home -->
-      <% if user_signed_in? %>
-        <li class="barContent"><%= link_to "Collages", views_path if user_signed_in?%></li>
-        <!-- Portraits could be substituted for Profile or Collection -->
-        <li class="barContent"><%= link_to "Portrait", current_user if current_user%></li>
-      <% else %>
-        <li class="barContent"><%= link_to "Collages"%></li>
-        <li class="barContent"><%= link_to "Portrait"%></li>
-      <% end %>
 
-      <li class="barContent"><%= link_to "Requests", request_path if current_user%></li>
-      <% if current_user %>
-      <li class="barContent"><%= link_to "Log Out", destroy_user_session_path, method: :delete%></li>
-      <% else %>
-      <li class="barContent"><%= link_to "Sign In", user_session_path %></li>
-      <% end %>
-      <!-- look into where like ActiveRecord -->
-      <li class="barContent">
-        <%= form_tag searchPicture_path, :method => 'get', id:"searchForm"  do %>
-          <p>
-            <%= text_field_tag :type, params[:type] %>
-            <%= select_tag(:search, options_for_select([['User'], ['Location'],['Tag']])) %>
-            <%= submit_tag "Search", id: "searchSubmit"%>
-          </p>
-        <% end %>
-      </li>
-    </ul>
+    <% if user_signed_in? %>
+      <input id="currentUserId" type="hidden" value="<%= current_user.id %>">
+
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1"><%= link_to image_tag("views-logo3.png", size:"126x55"), views_path(current_user) %></div>
+        <div class="col-md-1 navPad portrait"><%= link_to image_tag("city-Portrait-icon.png", size: "40x40"), current_user%></div>
+
+        <div class="col-md-1 searchColumn">
+          <%= form_tag searchPicture_path, :method => 'get', id:"searchForm"  do %>
+          <%= text_field_tag :type, params[:type] %>
+          <%= select_tag(:search, options_for_select([['User'], ['Location'],['Tag']])) %>
+          <%= submit_tag "Search", id: "searchSubmit"%>
+          <% end %>
+        </div>
+
+
+        <div class="col-md-1 navPad followRequest"><%= link_to image_tag("friends-icon.png", size: "75x35"), request_path%></div>
+        <div class="col-md-1 navPad"><%= link_to image_tag("door-exit_318-48444.png", size: "50x50"), destroy_user_session_path, method: :delete%></div>
+        <div class="col-md-1"></div>
+      </div>
+      <div class="row row2">
+
+      </div>
+
+
+    <% else %>
+      <div class="login">
+        <%= image_tag("views-logo3.png", size:"126x55")%>
+      </div>
+    <% end %>
+
     <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
     <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
     <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>

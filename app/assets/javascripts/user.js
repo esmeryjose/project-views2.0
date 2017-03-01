@@ -49,8 +49,9 @@ class User{
         <a href="/users/${this.id}">${this.name}</a>${buttons}
       <div>
       <br><br>
-    `
-    $('#yield').prepend(theDivs);
+    `;
+    interactYield(theDivs,"prepend")
+    // $('#yield').prepend(theDivs);
   }
 
   displayUser(){

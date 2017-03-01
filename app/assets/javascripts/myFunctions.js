@@ -21,6 +21,25 @@ class Error {
   }
 }
 
+function interactYield(content,expression) {
+  switch (expression) {
+    case "replace":
+      $('#yield').html(content);
+      break;
+
+    case "append":
+      $('#yield').append(content);
+      break;
+
+    case "prepend":
+      $('#yield').prepend(content);
+      break;
+
+    default:
+
+  }
+}
+
 function getRoute() {
   return window.location.href.toString().split(window.location.host)[1]
 }

@@ -5,7 +5,7 @@ function attachSearchListener(searchAjax) {
     e.preventDefault();
     searchWord = $(this).context.elements[1].value.trim();
     if (searchWord !== "") {
-      searchType = this.childNodes[2].children[1].value;
+      searchType = $(this)[0].children[2].value;
       searchData = new FormData(this);
       searchAjax(searchData);
     }else {

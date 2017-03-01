@@ -15,7 +15,6 @@ function isShowPage(route){
 
 function attachShowPictureListerner() {
   $('#yield').on("click","img.showPicture", function(e){
-    // this.stopImmediatePropagation();
     var route  = this.className.split(" ")[1];
     pictureAjax(route);
   });
