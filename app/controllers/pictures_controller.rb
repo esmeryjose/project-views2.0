@@ -48,6 +48,7 @@ class PicturesController < ApplicationController
 
   def set_picture
     @picture = Picture.find_by(id: params[:id])
+    @user = @picture.user
     if params[:action] == "edit"
       set_location
     end

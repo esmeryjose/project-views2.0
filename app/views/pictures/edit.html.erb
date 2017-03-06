@@ -1,3 +1,6 @@
 <input type="hidden" name="parseForm">
-<%= image_tag @picture.avatar.url %>
-<%= render partial: "pictures/form", locals: {picture: @picture} %>
+
+<div class="pictureBlock">
+  <%= image_tag @picture.avatar.url %>
+</div>
+<%= render partial: "pictures/form", locals: {picture: @picture, user: @user, current_user: current_user} %>

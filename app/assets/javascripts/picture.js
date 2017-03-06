@@ -3,6 +3,7 @@ var theNewForm;
 class Picture {
   constructor(responseObject) {
     this.id = responseObject.id;
+    this.date = this.parseDate(responseObject.created_at)
     this.title  = responseObject.title;
     this.avatar = responseObject.avatar;
     this.tags = responseObject.tags;
@@ -11,16 +12,41 @@ class Picture {
     this.comments = responseObject.comments
   }
 
+  parseDate(date){
+    var newDate = new Date(date).toString().split(" ")
+    newDate = `${newDate[1]} ${newDate[2]}, ${newDate[3]}`
+    return newDate
+  }
+
   makeButton(){
     var currentUserId = theCurrentUserId(), buttons ="";
     if (currentUserId == this.user.id) {
       buttons = `
-        <button class="editButton ${this.id}">Edit</button>
-        <button class="deleteButton ${this.id}">Delete</button>
+        <div class="ui buttons">
+          <button class="ui button editButton ${this.id}">Edit</button>
+          <div class="or"></div>
+          <button class="ui button deleteButton ${this.id}">Delete</button>
+        </div>
         <br>
       `
     }
     return buttons
+  }
+
+  makeTags(){
+    var tags = "", tagContainer;
+    if (this.tags) {
+      this.tags.forEach(tag=>{
+        tags+=`<span class="label label-primary tag">${tag.title}</span>`
+      })
+    }
+    tagContainer = `<div class="tagContainer">${tags}</div>`;
+
+    return tagContainer;
+  }
+
+  deleteName(){
+    this.title = "";
   }
 
   makeComments(){
@@ -61,22 +87,32 @@ class Picture {
   }
 
   pictureStructure(){
-    var htmlButton, route = `/users/${this.user.id}/pictures/${this.id}`;
+    var htmlTags,htmlButton, route = `/users/${this.user.id}/pictures/${this.id}`;
     // this is the route for the delete button action='/pictures/${this.id}' method="post"
     htmlButton = this.makeButton();
+    htmlTags = this.makeTags();
     var htmlPicture = `
-      <div class="pictureBlock">
-        <div class='picture ${this.id}'>
-          ${this.title || ''}<br>
-          ${this.location.title}, ${this.location.address}<br>
-          <img class='showPicture ${route}' src='${this.avatar.url}'></a>
-          <br>
-          ${htmlButton}
-          <br><br>
-        </div>
-        <div class="commentsBlock">
-        </div>
-      </div>
+          <div class="ui card item">
+            <div class="content">
+              <div class="right floated meta">${this.date}</div>
+              <a class="userName" href="/users/${this.user.id}">${this.user.name}</a>
+            </div>
+            <div class="extra content">
+              ${this.location.title}, ${this.location.address}
+            </div>
+            <div class="image">
+              <img class='showPicture ${route}' src='${this.avatar.url}'></a>
+            </div>
+            <div class="content">
+              ${this.title || ''}
+            </div>
+            <div class="theTags">
+              ${htmlTags}
+            </div>
+            ${htmlButton}
+            <div class="commentsBlock">
+            </div>
+          </div>
     `
     return htmlPicture
   }
@@ -94,7 +130,7 @@ function formSubmit() {
     var url = this.action.split("http://localhost:3000")[1];
     var formId = this.id;
     var formClass = this.className;
-    var submitButtonId = this.children.submitButton.id
+    var submitButtonId = $("#submitButton")[0].id
     var newData = new FormData(this);
 
     $.ajax({
@@ -158,6 +194,9 @@ function postEditPicture() {
 function displayPictureCollection(pictures,id) {
   pictures.forEach(pic=>{
     var photo = new Picture(pic);
+    if (id === "thePictures") {
+      photo.user.name = "";
+    }
     photo.displayPicture(id);
   });
 }

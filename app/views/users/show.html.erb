@@ -1,9 +1,9 @@
   <div class="userInfo">
   </div>
 
-  <%= render partial: "pictures/form", locals: {picture: @picture} %>
+  <%= render partial: "pictures/form", locals: {picture: @picture, user: @user, current_user: current_user} %>
 
   <br><br><br><br>
 
-  <div id="thePictures">
+  <div id="thePictures" class="containerShow">
   </div>

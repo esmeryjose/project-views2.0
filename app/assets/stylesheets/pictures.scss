@@ -1,3 +1,85 @@
 // Place all the styles related to the Pictures controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.new_picture{
+  margin: 0 auto;
+  width: 20%;
+  // text-align: center;
+}
+
+img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.containerIndex {
+  display: flex; /* or inline-flex */
+  flex-direction: column;
+}
+
+.containerShow{
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.containerSearch{
+  display: flex; /* or inline-flex */
+  flex-direction: column;
+}
+
+.item{
+  text-align: center;
+  margin: 0 auto !important;
+  width: 30% !important;
+  margin-bottom: 2% !important;
+  margin-top: 2% !important;
+}
+
+.tagContainer{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-top: outset;
+}
+
+.tag{
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-right: 1%;
+}
+
+.buttons{
+  margin-top: 1%;
+  margin-bottom: -3%;
+  border-top: outset;
+  // display: inline-block;
+}
+
+.editButton{
+  background-color: #008000 !important;
+  margin-left: 2% !important;
+  width: 47%;
+  margin-top: 2% !important;
+  margin-bottom: -2% !important;
+}
+
+.or{
+  margin-top: 2%;
+  margin-bottom: -2% !important;
+}
+
+.deleteButton{
+  background-color: #B22222 !important;
+  margin-right: 2%;
+  width: 47%;
+  margin-top: 2% !important;
+  margin-bottom: -2% !important;
+}
+
+.userName{
+  float: left;
+}

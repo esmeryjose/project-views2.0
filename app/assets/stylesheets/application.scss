@@ -17,6 +17,7 @@
  @import "bootstrap";
 
 
+
 .portrait{
   width: 13% !important;
   text-align: center;
@@ -48,6 +49,14 @@
   width: 17.5%;
 }
 
-.row2{
-  padding-top: 55px;
+body{
+  background-color: white !important;
+}
+
+.row{
+  margin-top: -2%;
+}
+
+#yield{
+  background-color: #fafafa;
 }

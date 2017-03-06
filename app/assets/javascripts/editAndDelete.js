@@ -9,7 +9,6 @@ function editClicked() {
       success: response=>{
         var editForm = response.split(`<input type="hidden" name="parseForm">`)[1];
         interactYield(editForm,"replace");
-
       },
       error: error=>{
 
@@ -27,7 +26,13 @@ function deleteClicked() {
       url: url,
       method: "DELETE",
       success: response=>{
-        $(`.${response.picture}`).remove()
+        debugger;
+        if (searchData) {
+          searchAjax(searchData)
+        } else {
+          location.reload();
+          $(`.${response.picture}`).parent().remove()
+        }
       },
       error: error=>{
 

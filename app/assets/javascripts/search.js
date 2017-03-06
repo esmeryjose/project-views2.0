@@ -53,6 +53,7 @@ function displaySearchUsers(response) {
 
 function displaySearch(response) {
   searchObjectId = 1;
+  $("#yield").append("<div id='searchCollection' class='containerSearch'></div>")
   response.forEach(obj=>{
     if (obj.pictures.length > 0) {
       locationTag = new LocationTag(obj, searchObjectId)

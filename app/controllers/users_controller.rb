@@ -42,6 +42,7 @@ class UsersController < ApplicationController
 
   def user_attr
     @user = User.find_by(id: params[:id])
+
     @picture = Picture.new
     @location = Location.new(title:"", address:"")
   end

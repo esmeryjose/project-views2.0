@@ -1,32 +1,38 @@
 <br>
-<%= form_for picture, :html => { id:"nestedForm" } do |f| %>
-  <% if params[:action] != "edit" %>
+<% if user == current_user %>
+
+  <%= form_for picture, :html => { id:"nestedForm" } do |f| %>
+
+  <div class="formContent">
+    <% if params[:action] != "edit" %>
     <%= f.file_field :avatar%><br><br>
-  <% end %>
-  <%= f.label :title, "Picture Title" %>
-  <%= f.text_field :title %><br>
-  <%= f.label "Create Location:" %><br>
-  <%= f.fields_for :location, picture.build_location do |i| %>
-    <%= i.label :title %>
+    <% end %>
+    <%= f.label :title, "Picture Title" %><br>
+    <%= f.text_field :title %><br><br>
+    <%= f.label "Create Location:" %><br>
+    <%= f.fields_for :location, picture.build_location do |i| %>
+    <%= i.label :title %><br>
     <%= i.text_field :title, value: @location.title %><br>
-    <%= i.label :address %>
+    <%= i.label :address %><br>
     <%= i.text_field :address, value: @location.address %>
-  <% end %><br><br>
-  Select Existing Location:<br>
-  <%= f.collection_select :location_id, Location.all, :id, :title, :include_blank => true %><br><br>
+    <% end %><br><br>
+    Select Existing Location:<br>
+    <%= f.collection_select :location_id, Location.all, :id, :title, :include_blank => true %><br><br>
 
-  <%= f.label "Create Tag:" %><br>
-  <%= f.fields_for :tags, picture.tags.build do |i| %>
+    <%= f.label "Create Tag:" %><br>
+    <%= f.fields_for :tags, picture.tags.build do |i| %>
     <%= i.text_field :title %>
-  <% end %><br><br>
-  Select Existing Tags:<br>
-  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :title %><br><br>
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  <% if params[:action] == "edit" %>
+    <% end %><br><br>
+    Select Existing Tags:<br>
+    <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :title %><br><br>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <% if params[:action] == "edit" %>
     <%= f.submit " Edit Picture", id:"submitButton"  %>
-  <% else %>
+    <% else %>
     <%= f.submit " Post Picture", id:"submitButton"  %>
-  <% end %>
+    <% end %>
+  </div>
 
+  <% end %>
 <% end %>
 <input type="hidden" name="parseForm">
