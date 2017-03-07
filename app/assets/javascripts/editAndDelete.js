@@ -1,6 +1,6 @@
 function editClicked() {
   $("#yield").on("click",".editButton", function(e){
-    var picId = this.className.split(" ")[1];
+    var picId = this.className.split(" ")[3];
     var url = `/pictures/${picId}/edit`
     $.ajax({
       url: url,
@@ -20,13 +20,12 @@ function editClicked() {
 
 function deleteClicked() {
   $("#yield").on("click",".deleteButton", function(e){
-    var picId = this.className.split(" ")[1];
+    var picId = this.className.split(" ")[3];
     var url = `/pictures/${picId}`
     $.ajax({
       url: url,
       method: "DELETE",
       success: response=>{
-        debugger;
         if (searchData) {
           searchAjax(searchData)
         } else {

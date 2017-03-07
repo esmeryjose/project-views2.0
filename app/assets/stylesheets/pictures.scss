@@ -19,17 +19,15 @@ img{
   flex-direction: column;
 }
 
-.containerShow{
-  display: flex; /* or inline-flex */
-  flex-direction: row;
-  flex-wrap: wrap;
-
-}
 
 .containerSearch{
   display: flex; /* or inline-flex */
   flex-direction: column;
 }
+
+// .ui.card{
+//   margin-left: 1%;
+// }
 
 .item{
   text-align: center;
@@ -38,6 +36,27 @@ img{
   margin-bottom: 2% !important;
   margin-top: 2% !important;
 }
+
+.containerShow{
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 80%;
+  // margin: 0 auto !important;
+  margin-left: 13%;
+}
+
+.itemUserShow{
+  // text-align: center;
+  // width: 20% !important;
+  // margin-bottom: 3% !important;
+  text-align: center;
+  width: 20% !important;
+  margin-bottom: 1% !important;
+  margin-top: 1% !important;
+  margin-left: 2% !important;
+}
+
 
 .tagContainer{
   display: flex;
@@ -59,8 +78,12 @@ img{
   // display: inline-block;
 }
 
+.visible.content{
+  word-break: break-all !important;
+}
+
 .editButton{
-  background-color: #008000 !important;
+  background-color: #E6E6FA !important;
   margin-left: 2% !important;
   width: 47%;
   margin-top: 2% !important;
@@ -73,7 +96,7 @@ img{
 }
 
 .deleteButton{
-  background-color: #B22222 !important;
+  background-color: #E6E6FA !important;
   margin-right: 2%;
   width: 47%;
   margin-top: 2% !important;
@@ -82,4 +105,13 @@ img{
 
 .userName{
   float: left;
+}
+
+.customEditPic{
+  border-radius: 25px;
+}
+
+.pictureEdit{
+  margin: 0 auto;
+  text-align: center;
 }

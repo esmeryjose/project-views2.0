@@ -45,10 +45,6 @@ class Picture {
     return tagContainer;
   }
 
-  deleteName(){
-    this.title = "";
-  }
-
   makeComments(){
     var commentsHtml,
         allComments = "<div class='allComments'></div>";
@@ -86,13 +82,23 @@ class Picture {
     $(".commentsBlock").html(theBlock)
   }
 
+  changeTheClass(){
+    this.changeClass = true;
+  }
+
   pictureStructure(){
-    var htmlTags,htmlButton, route = `/users/${this.user.id}/pictures/${this.id}`;
+    var htmlTags,htmlButton, showClass = "", bodyClass,
+        route = `/users/${this.user.id}/pictures/${this.id}`;
     // this is the route for the delete button action='/pictures/${this.id}' method="post"
     htmlButton = this.makeButton();
     htmlTags = this.makeTags();
+    bodyClass = $('body')[0].className;
+    if (bodyClass === "users_show" && !this.changeClass) {
+      showClass = "UserShow";
+    }
+
     var htmlPicture = `
-          <div class="ui card item">
+          <div class="ui card item${showClass}">
             <div class="content">
               <div class="right floated meta">${this.date}</div>
               <a class="userName" href="/users/${this.user.id}">${this.user.name}</a>
@@ -194,9 +200,6 @@ function postEditPicture() {
 function displayPictureCollection(pictures,id) {
   pictures.forEach(pic=>{
     var photo = new Picture(pic);
-    if (id === "thePictures") {
-      photo.user.name = "";
-    }
     photo.displayPicture(id);
   });
 }

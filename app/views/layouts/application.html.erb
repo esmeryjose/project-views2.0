@@ -15,24 +15,41 @@
     <% if user_signed_in? %>
       <input id="currentUserId" type="hidden" value="<%= current_user.id %>">
 
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1"><%= link_to image_tag("views-logo3.png", size:"126x55"), views_path(current_user) %></div>
-        <div class="col-md-1 navPad portrait"><%= link_to image_tag("city-Portrait-icon.png", size: "40x40"), current_user%></div>
+      <div class="navBar">
+        <div class="column  1">
+          <%= link_to image_tag("views-logo6.png", size:"100x45"), views_path(current_user) %>
+        </div>
 
-        <div class="col-md-1 searchColumn">
+        <div class="column 2">
+          <%= link_to image_tag("user-2-icon.png", size:"40x40"), current_user%>
+        </div>
+
+        <div class="column 3">
           <%= form_tag searchPicture_path, :method => 'get', id:"searchForm"  do %>
-          <%= text_field_tag :type, params[:type] %>
-          <%= select_tag(:search, options_for_select([['User'], ['Location'],['Tag']]), class:"ui dropdown") %>
-          <%= submit_tag "Search", id: "searchSubmit"%>
+          <div class="ui icon input">
+            <%= text_field_tag :type, params[:type], placeholder:"search...", class:"theSearchInput" %>
+            <i class="circular search link icon"></i>
+          </div>
+          <span class="drop custom-dropdown custom-dropdown--white custom-dropdown--small">
+              <select class="custom-dropdown__select custom-dropdown__select--white">
+                  <option>User</option>
+                  <option>Location</option>
+                  <option>Tag</option>
+              </select>
+          </span>
+          <!-- <%= submit_tag "Search", id: "searchSubmit"%> -->
           <% end %>
         </div>
 
+        <div class="column 4">
+          <%= link_to image_tag("users-4-icon.png", size: "50x45"), request_path%>
+        </div>
 
-        <div class="col-md-1 navPad followRequest"><%= link_to image_tag("friends-icon.png", size: "75x35"), request_path%></div>
-        <div class="col-md-1 navPad"><%= link_to image_tag("door-exit_318-48444.png", size: "50x50"), destroy_user_session_path, method: :delete%></div>
-        <div class="col-md-1"></div>
+        <div class="column 5">
+          <%= link_to image_tag("exitDoor.png", size:"50x50"), destroy_user_session_path, method: :delete%>
+        </div>
       </div>
+
 
     <% else %>
       <div class="login">
