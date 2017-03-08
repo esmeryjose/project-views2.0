@@ -69,9 +69,9 @@ class Picture {
   commentsForm(){
     var form = `
     <form action="/comments" method="post" id="commentsForm">
-      <input type="text" name="comments[content]">
+      <input class="commentInput" type="text" name="comments[content]">
       <input type="hidden" name="comments[picture_id]" value="${this.id}">
-      <input type="submit" value="Submit">
+      <input class="ui grey basic button" type="submit" value="Submit">
     </form>
     `;
     return form;

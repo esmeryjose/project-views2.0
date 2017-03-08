@@ -15,6 +15,7 @@
 .allComments{
   text-align: left ;
   margin-left: 10% ;
+  margin-top: 2%;
   float: left ;
 }
 .comment{
@@ -26,5 +27,15 @@
   margin-left: 10% ;
   text-align: left ;
   margin-bottom: 2% ;
+  margin-top: 14%;
   clear: left ;
+}
+
+.commentInput{
+  border-radius: .2857rem;
+  border: 1px solid rgba(0,0,0,.15);
+}
+
+.ui.grey.basic.button{
+  font-size: 12px !important;
 }
