@@ -56,3 +56,7 @@ function clearYield(){
 function theCurrentUserId(){
   return $('#currentUserId')[0].value;
 }
+
+function clearSearchForm() {
+  $("#searchForm")[0].elements[1].value = "";
+}

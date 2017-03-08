@@ -201,6 +201,21 @@ body{
   background-color: white !important;
 }
 
+.circular.search.link.icon{
+  margin-top: 5px !important;
+}
+
+.theSearchInput{
+  font-size: 14px;
+  margin-top: 2px !important;
+  height: 30px;
+}
+
+.theSearchInput::-webkit-input-placeholder {
+    font-size: 14px;
+    line-height: 3;
+}
+
 .column{
   margin-right: 5%;
   margin-left: 5%;

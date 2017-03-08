@@ -1,32 +1,46 @@
 var searchData, searchType;
 
-function attachSearchListener(searchAjax) {
+function attachSearchFormListener() {
   $("#searchForm").on('submit', function(e){
-    e.preventDefault();
-    searchWord = $(this).context.elements[1].value.trim();
-    if (searchWord !== "") {
-      searchType = $(this)[0].children[2].value;
-      searchData = new FormData(this);
-      searchAjax(searchData);
-    }else {
-      searchData = "";
-      var error = new Error({search: "can't be blank"})
-      error.displayErrors();
-    }
+
     // this clears the form and also
     // returns false so that the search button unclicks
-    $("#searchForm")[0].elements[1].value = "";
+    searchDeligator(e,this);
+    clearSearchForm();
     return false;
   });
+}
+
+function attachSearchIconListener(){
+  $("#searchInputIcon").on("click", function(e) {
+    var form = this.parentElement.parentElement;
+    searchDeligator(e,form);
+    clearSearchForm();
+  });
+}
+
+function searchDeligator(e,block) {
+  e.preventDefault();
+  searchWord = $(block)[0].children[1].children[0].value.trim();
+  if (searchWord !== "") {
+    searchType = block.children[2].children[0].value
+    searchData = {
+      search: searchType,
+      type: searchWord
+    }
+    searchAjax(searchData);
+  }else {
+    searchData = "";
+    var error = new Error({search: "can't be blank"})
+    error.displayErrors();
+  }
 }
 
 function searchAjax(data) {
   $.ajax({
     url: '/searchPicture',
     method: 'POST',
-    data: searchData,
-    processData: false,
-    contentType: false,
+    data: data,
     success: response=>{
       clearYield();
       if (searchType === "User") {
@@ -123,5 +137,6 @@ function associationResponse(response,userButtonClass) {
 $(document).on('turbolinks:load',()=>{
   attachUserButtonListerner();
   formSubmit();
-  attachSearchListener(searchAjax);
+  attachSearchFormListener();
+  attachSearchIconListener();
 });
