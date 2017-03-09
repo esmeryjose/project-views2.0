@@ -5,22 +5,26 @@ module UsersHelper
   end
 
   def associating_hash(relation, associating_user)
-    # if the user click the decline or cancel request button
-    if relation == "Decline" || relation == "Cancel Request"
-        current_user.follower_requests.delete(associating_user)
-      relation == "Decline"?  "followed denied" : "request was cancelled"
 
-    # if the user click the follow
-    elsif relation == "Follow"
+    case relation
+    when "Cancel Request"
+      current_user.pending.delete(associating_user)
+      "request was cancelled"
+
+    when "Decline"
+      current_user.follower_requests.delete(associating_user)
+      "followed denied"
+
+    when "Follow"
       Follow.associating_users(current_user,associating_user)
       "request was sent"
 
-    # else the user is accepting the following request
-    elsif relation == "Accept"
+    when "Accept"
+      # we let the Follow return the string in case the user making the request cancels
+      # right before the user receiving the request accepts or declines
       Follow.complete_association(current_user, associating_user)
-      "followed approved"
 
-    elsif relation == "Unfollow"
+    when "Unfollow"
       current_user.following.delete(associating_user)
       "user unfollowed"
     end

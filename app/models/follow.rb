@@ -11,6 +11,12 @@ class Follow < ApplicationRecord
 
   def self.complete_association(myself, associating_user)
     relation = Follow.where(user_id: associating_user.id, following_id: myself.id).first
-    relation.update(request: true)
+    if relation
+      relation.update(request: true)
+      "followed approved"
+    else
+      nil
+    end
+
   end
 end

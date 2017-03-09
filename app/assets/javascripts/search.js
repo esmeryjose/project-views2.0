@@ -104,6 +104,8 @@ function association(url,data,userButtonClass) {
       associationResponse(response,userButtonClass)
     },
     error: error=>{
+      var error = new Error(error.responseJSON)
+      error.displayErrors();
     }
   });
 }

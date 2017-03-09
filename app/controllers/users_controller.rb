@@ -34,8 +34,11 @@ class UsersController < ApplicationController
   def association
     associating_user = User.find_by(id: params[:otherUserId])
     response = {}
-    response[:user] = helpers.associating_hash(params[:relation], associating_user)
-    render json: response
+    if response[:user] = helpers.associating_hash(params[:relation], associating_user)
+      render json: response
+    else
+      render json: {request: "There was a problem with the request, please refresh browser"}, status: 422
+    end
   end
 
   private
