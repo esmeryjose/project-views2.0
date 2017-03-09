@@ -2,7 +2,7 @@ var searchData, searchType;
 
 function attachSearchFormListener() {
   $("#searchForm").on('submit', function(e){
-
+    e.stopImmediatePropagation()
     // this clears the form and also
     // returns false so that the search button unclicks
     searchDeligator(e,this);
@@ -13,6 +13,7 @@ function attachSearchFormListener() {
 
 function attachSearchIconListener(){
   $("#searchInputIcon").on("click", function(e) {
+    e.stopImmediatePropagation()
     var form = this.parentElement.parentElement;
     searchDeligator(e,form);
     clearSearchForm();
@@ -42,6 +43,7 @@ function searchAjax(data) {
     method: 'POST',
     data: data,
     success: response=>{
+      debugger;
       clearYield();
       if (searchType === "User") {
         displaySearchUsers(response);
@@ -58,7 +60,7 @@ function searchAjax(data) {
 }
 
 function displaySearchUsers(response) {
-  var someUser
+  interact("#yield","<div class='requestContainer'></div>","replace")
   response.forEach(object=>{
     someUser = new User(object.user)
     someUser.makeUser([object.availability])

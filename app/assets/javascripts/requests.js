@@ -15,6 +15,7 @@ function getRequests() {
 
 function createRequestUser(response) {
   var buttonNames = ["accept","decline"];
+  interact("#yield","<div class='requestContainer'></div>","replace")
   var someUser;
   response.forEach(user=>{
     someUser = new User(user)

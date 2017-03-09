@@ -21,24 +21,26 @@ class Error {
   }
 }
 
-function interactYield(content,expression) {
+function interact(target,content,expression) {
   switch (expression) {
     case "replace":
-      $('#yield').html(content);
+      $(`${target}`).html(content);
       break;
 
     case "append":
-      $('#yield').append(content);
+      $(`${target}`).append(content);
       break;
 
     case "prepend":
-      $('#yield').prepend(content);
+      $(`${target}`).prepend(content);
       break;
 
     default:
 
   }
 }
+
+
 
 function getRoute() {
   return window.location.href.toString().split(window.location.host)[1]
@@ -59,4 +61,8 @@ function theCurrentUserId(){
 
 function clearSearchForm() {
   $("#searchForm")[0].elements[1].value = "";
+}
+
+function createInside() {
+
 }

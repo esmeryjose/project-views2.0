@@ -12,23 +12,23 @@ class User{
     availability.forEach(name=>{
       switch (name) {
         case "not following":
-        buttons += `<button class="userButton ${this.id}">Follow</button>`;
+        buttons += `<button class="userButton ${this.id} ui basic green button">Follow</button>`;
         break;
 
         case "resquest sent":
-        buttons += `<button class="userButton ${this.id}">Cancel Request</button>`;
+        buttons += `<button class="userButton ${this.id} ui basic red button">Cancel Request</button>`;
         break;
 
         case "following":
-        buttons += `<button class="userButton ${this.id}">Unfollow</button>`;
+        buttons += `<button class="userButton ${this.id} ui basic red button">Unfollow</button>`;
         break;
 
         case "accept":
-        buttons += `<button class="userButton ${this.id}">Accept</button>`;
+        buttons += `<button class="userButton ${this.id} ui basic green button">Accept</button>`;
         break;
 
         case "decline":
-        buttons += `<button class="userButton ${this.id}">Decline</button>`;
+        buttons += `<button class="userButton ${this.id} ui basic red button">Decline</button>`;
         break;
 
         default:
@@ -38,19 +38,50 @@ class User{
     return buttons;
   }
 
-  makeUser(arrayButtonDesign){
-    var buttons= "";
-    var currentUserId = theCurrentUserId();
-    if (this.id != currentUserId) {
+  construcButtons(arrayButtonDesign){
+    var buttons = "";
+    this.buttonClass = "ui two buttons";
+    if (this.id != theCurrentUserId()) {
       buttons = this.makeButton(arrayButtonDesign);
     }
-    var theDivs = `
-      <div class = "searchU ${this.id}">
-        <a href="/users/${this.id}">${this.name}</a>${buttons}
-      <div>
-      <br><br>
+    this.buttons =  buttons;
+  }
+
+  makeDescription(){
+    debugger;
+    var description = `${this.name} requested permission to Follow you`;
+
+    if ( this.buttons.includes("Follow") || this.buttons.includes("Unfollow") || this.buttons.includes("Cancel Request")) {
+
+        this.buttonClass = "ui one buttons";
+        description = "";
+    }
+    return description;
+  }
+
+  makeUser(arrayButtonDesign){
+    this.construcButtons(arrayButtonDesign);
+    var description = this.makeDescription();
+    var requestCards = `
+      <div class="ui cards request">
+        <div class="card">
+          <div class="content">
+            <div class="searchU ${this.id} header">
+              <a href="/users/${this.id}">${this.name}</a>
+            </div>
+            <div class="description">
+              ${description}
+            </div>
+          </div>
+          <div class="extra content">
+            <div class='${this.buttonClass}'>
+              ${this.buttons}
+            </div>
+          </div>
+        </div>
+      </div>
     `;
-    interactYield(theDivs,"prepend")
+    interact(".requestContainer",requestCards,"prepend")
     // $('#yield').prepend(theDivs);
   }
 

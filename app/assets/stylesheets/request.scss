@@ -1,0 +1,27 @@
+.requestContainer{
+  display: flex ; /* or inline-flex */
+  flex-direction: column;
+  margin-top: 3% !important;
+
+}
+
+.ui.cards.request{
+  margin: 0 auto;
+  width: 22% !important;
+
+}
+
+.ui.one.buttons{
+  // margin: 0 auto !important;
+  margin-left: 30% !important;
+  width: 60% !important;
+}
+
+.ui.buttons{
+  border-top: none;
+}
+
+.searchU.header{
+  text-align: center;
+
+}

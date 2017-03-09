@@ -8,7 +8,7 @@ function editClicked() {
       dataType: "text",
       success: response=>{
         var editForm = response.split(`<input type="hidden" name="parseForm">`)[1];
-        interactYield(editForm,"replace");
+        interact("#yield",editForm,"replace");
       },
       error: error=>{
 

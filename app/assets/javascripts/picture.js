@@ -186,12 +186,12 @@ function postEditPicture() {
         </div>
       `;
       // $("#yield").html(`${userShow}`);
-      interactYield(userShow,"replace")
+      interact("#yield",userShow,"replace")
       getUser();
     } else {
       // $("#yield").html("<div id='indexPictures'></div>");
       var content = "<div id='indexPictures'></div>";
-      interactYield(content,"replace")
+      interact("#yield",content,"replace")
       pictureAjax();
     }
   }
