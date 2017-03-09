@@ -48,7 +48,6 @@ class User{
   }
 
   makeDescription(){
-    debugger;
     var description = `${this.name} requested permission to Follow you`;
 
     if ( this.buttons.includes("Follow") || this.buttons.includes("Unfollow") || this.buttons.includes("Cancel Request")) {
@@ -63,7 +62,7 @@ class User{
     this.construcButtons(arrayButtonDesign);
     var description = this.makeDescription();
     var requestCards = `
-      <div class="ui cards request">
+      <div class="${this.id} ui cards request">
         <div class="card">
           <div class="content">
             <div class="searchU ${this.id} header">
@@ -89,11 +88,11 @@ class User{
     var htmlUserInfo = `
       <h1>${this.name}</h1>
       <h2>${this.email}</h2>
-    `
-    $('.userInfo').html("")
-    $(`#thePictures`).html("")
+    `;
+    $('.userInfo').html("");
+    $(`#thePictures`).html("");
     $('.userInfo').append(htmlUserInfo);
-    displayPictureCollection(this.pictures,"thePictures")
+    displayPictureCollection(this.pictures,"thePictures","users_show");
   }
 }
 

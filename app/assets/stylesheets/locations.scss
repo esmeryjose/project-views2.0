@@ -6,3 +6,8 @@
   margin: 0 auto;
   width: 20%;
 }
+
+.containerSearch{
+  display: flex; /* or inline-flex */
+  flex-direction: column;
+}

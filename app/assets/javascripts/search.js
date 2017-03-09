@@ -43,7 +43,6 @@ function searchAjax(data) {
     method: 'POST',
     data: data,
     success: response=>{
-      debugger;
       clearYield();
       if (searchType === "User") {
         displaySearchUsers(response);
@@ -69,7 +68,7 @@ function displaySearchUsers(response) {
 
 function displaySearch(response) {
   searchObjectId = 1;
-  $("#yield").append("<div id='searchCollection' class='containerSearch'></div>")
+  interact("#yield","<div id='searchCollection'></div>","append")
   response.forEach(obj=>{
     if (obj.pictures.length > 0) {
       locationTag = new LocationTag(obj, searchObjectId)
@@ -112,16 +111,18 @@ function association(url,data,userButtonClass) {
 function associationResponse(response,userButtonClass) {
   var buttonClass;
   if (response.user === "request was sent") {
-    buttonClass = userButtonClass.replace(" ",".");
+    buttonClass = userButtonClass.split(" ").join(".");
     $(`.${buttonClass}`)[0].innerHTML = "Cancel Request";
+    $(`.${buttonClass}`)[0].className = $(`.${buttonClass}`)[0].className.replace("green","red")
 
-  } else if (response.user === "request was cancelled") {
-    buttonClass = userButtonClass.replace(" ",".");
+  } else if (response.user === "request was cancelled" || response.user === "user unfollowed") {
+    buttonClass = userButtonClass.split(" ").join(".");
     $(`.${buttonClass}`)[0].innerHTML ="Follow";
+    $(`.${buttonClass}`)[0].className = $(`.${buttonClass}`)[0].className.replace("red","green")
 
   } else {
-    var divClass = userButtonClass.replace("userButton","searchU");
-    divClass = divClass.replace(" ",".");
+    var divClassId = userButtonClass.split(" ")[1];
+    var divClass = `${divClassId}.ui.cards.request`;
     $(`.${divClass}`)[0].remove();
   }
 }

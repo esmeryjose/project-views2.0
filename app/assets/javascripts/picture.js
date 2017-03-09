@@ -1,7 +1,7 @@
 var theNewForm;
 
 class Picture {
-  constructor(responseObject) {
+  constructor(responseObject, itemClass) {
     this.id = responseObject.id;
     this.date = this.parseDate(responseObject.created_at)
     this.title  = responseObject.title;
@@ -10,6 +10,7 @@ class Picture {
     this.user = responseObject.user;
     this.location = responseObject.location;
     this.comments = responseObject.comments
+    this.itemClass = itemClass;
   }
 
   parseDate(date){
@@ -86,19 +87,27 @@ class Picture {
     this.changeClass = true;
   }
 
+  makeItemClass(){
+
+    var showClass = "", bodyClass = $('body')[0].className;
+
+    if (bodyClass === "users_show" && !!this.itemClass) {
+      showClass = "UserShow";
+    }
+
+    return showClass;
+    // its going to return the class of the item
+  }
   pictureStructure(){
-    var htmlTags,htmlButton, showClass = "", bodyClass,
+    var htmlTags,htmlButton, showClass = "", bodyClass, itemClass,
         route = `/users/${this.user.id}/pictures/${this.id}`;
     // this is the route for the delete button action='/pictures/${this.id}' method="post"
     htmlButton = this.makeButton();
     htmlTags = this.makeTags();
-    bodyClass = $('body')[0].className;
-    if (bodyClass === "users_show" && !this.changeClass) {
-      showClass = "UserShow";
-    }
+    itemClass = this.makeItemClass();
 
     var htmlPicture = `
-          <div class="ui card item${showClass}">
+          <div class="ui card item${itemClass}">
             <div class="content">
               <div class="right floated meta">${this.date}</div>
               <a class="userName" href="/users/${this.user.id}">${this.user.name}</a>
@@ -197,9 +206,9 @@ function postEditPicture() {
   }
 }
 
-function displayPictureCollection(pictures,id) {
+function displayPictureCollection(pictures,id, someClass) {
   pictures.forEach(pic=>{
-    var photo = new Picture(pic);
+    var photo = new Picture(pic,someClass);
     photo.displayPicture(id);
   });
 }

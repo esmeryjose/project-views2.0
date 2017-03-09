@@ -20,6 +20,9 @@ module UsersHelper
       Follow.complete_association(current_user, associating_user)
       "followed approved"
 
+    elsif relation == "Unfollow"
+      current_user.following.delete(associating_user)
+      "user unfollowed"
     end
   end
 

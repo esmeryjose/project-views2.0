@@ -13,7 +13,7 @@ class LocationTag{
 
     var htmlObject = `
       <h2 class="objectInfo">${objectInfo}:</h2>
-      <div id="picturesSearched${this.id}"  class="picturesSearched">
+      <div id="picturesSearched${this.id}"  class="containerSearch">
       </div>
     `;
 

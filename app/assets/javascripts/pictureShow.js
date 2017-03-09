@@ -2,7 +2,7 @@ function showPictureDisplay(picture) {
   clearYield();
   $('#yield').append("<div id='theShowPhoto'></div>")
   photo = new Picture(picture);
-  photo.changeTheClass();
+  // photo.changeTheClass();
   photo.displayPicture("theShowPhoto");
   photo.commentsBlock();
 }
