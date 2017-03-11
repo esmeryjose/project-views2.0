@@ -1,9 +1,9 @@
-<br>
+
 <% if user == current_user %>
-
-  <%= form_for picture, :html => { id:"nestedForm" } do |f| %>
-
-  <div class="formContent">
+  <button type="button" name="button" id="someButton">Post Picture</button>
+  <input type="hidden" name="parseForm">
+  <%= form_for picture, :html => { id:"nestedForm", class:"ui modal"} do |f| %>
+    <div class="formContent">
     <% if params[:action] != "edit" %>
     <%= f.file_field :avatar%><br><br>
     <% end %>
@@ -32,7 +32,7 @@
     <%= f.submit " Post Picture", id:"submitButton"  %>
     <% end %>
   </div>
-
   <% end %>
+
+  <input type="hidden" name="parseForm">
 <% end %>
-<input type="hidden" name="parseForm">

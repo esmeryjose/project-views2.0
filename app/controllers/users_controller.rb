@@ -15,10 +15,10 @@ class UsersController < ApplicationController
   def show
     respond_to do |f|
       f.html { render :show }
-      if @user
+      if @user == current_user || current_user.following.include?(@user)
         f.json { render json: @user }
       else
-        f.json { render json: {user: "does not exist"}, status: 422}
+        f.json { render json: {user: "you do not have access to this profile"}, status: 422}
       end
     end
   end

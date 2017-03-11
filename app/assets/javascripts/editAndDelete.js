@@ -8,7 +8,17 @@ function editClicked() {
       dataType: "text",
       success: response=>{
         var editForm = response.split(`<input type="hidden" name="parseForm">`)[1];
-        interact("#yield",editForm,"replace");
+        interact("#yield",editForm,"append");
+
+        $('.ui.modal')
+        .modal({
+          inverted: true
+        })
+        .modal('show')
+      ;
+
+        // $(".ui.modal").show()
+
       },
       error: error=>{
 
@@ -17,6 +27,7 @@ function editClicked() {
 
   });
 }
+
 
 function deleteClicked() {
   $("#yield").on("click",".deleteButton", function(e){

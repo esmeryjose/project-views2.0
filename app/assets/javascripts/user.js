@@ -87,7 +87,6 @@ class User{
   displayUser(){
     var htmlUserInfo = `
       <h1>${this.name}</h1>
-      <h2>${this.email}</h2>
     `;
     $('.userInfo').html("");
     $(`#thePictures`).html("");

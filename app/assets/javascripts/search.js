@@ -129,6 +129,14 @@ function associationResponse(response,userButtonClass) {
   }
 }
 
+function attachModalListerner(){
+  $("#someButton").on("click",()=>{
+    $('.ui.modal')
+    .modal({inverted: true})
+    .modal('show');
+  });
+}
+
 (function(){
 	var customSelects = document.querySelectorAll(".custom-dropdown__select");
 	for(var i=0; i<customSelects.length; i++){
@@ -144,4 +152,7 @@ $(document).on('turbolinks:load',()=>{
   formSubmit();
   attachSearchFormListener();
   attachSearchIconListener();
+  attachModalListerner()
+
+
 });

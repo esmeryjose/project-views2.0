@@ -88,7 +88,6 @@ class Picture {
   }
 
   makeItemClass(){
-
     var showClass = "", bodyClass = $('body')[0].className;
 
     if (bodyClass === "users_show" && !!this.itemClass) {
@@ -105,7 +104,6 @@ class Picture {
     htmlButton = this.makeButton();
     htmlTags = this.makeTags();
     itemClass = this.makeItemClass();
-
     var htmlPicture = `
           <div class="ui card item${itemClass}">
             <div class="content">
@@ -140,7 +138,7 @@ class Picture {
 
 function formSubmit() {
   $("#yield").on("submit","#nestedForm",function(e){
-    e.preventDefault();
+    e.stopPropagation();
     e.stopImmediatePropagation();
     var url = this.action.split("http://localhost:3000")[1];
     var formId = this.id;
@@ -190,8 +188,8 @@ function postEditPicture() {
         </div>
         <br>
         ${theNewForm.innerHTML}
-        <br><br><br><br>
-        <div id="thePictures">
+        <br>
+        <div id="thePictures" class="containerShow">
         </div>
       `;
       // $("#yield").html(`${userShow}`);
@@ -214,6 +212,7 @@ function displayPictureCollection(pictures,id, someClass) {
 }
 
 $( document ).on('turbolinks:load', ()=> {
+
   if ($(".users_show").length) {
     searchData ="";``
     theNewForm = $("#nestedForm")[0];
