@@ -152,7 +152,6 @@ $(document).on('turbolinks:load',()=>{
   formSubmit();
   attachSearchFormListener();
   attachSearchIconListener();
-  attachModalListerner()
-
+  attachModalListerner();
 
 });

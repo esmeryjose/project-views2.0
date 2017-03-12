@@ -220,3 +220,38 @@ body{
   margin-right: 5%;
   margin-left: 5%;
 }
+
+.errors{
+  display: flex; /* or inline-flex */
+  flex-direction: column;
+  display: none;
+  background-color: white;
+}
+
+.eachError{
+  color: #7F7F7F;
+  margin-left: 3%;
+}
+
+@-webkit-keyframes wiggle {
+	0% {
+		-webkit-transform:rotate(4deg);
+	}
+	50% {
+		-webkit-transform:rotate(-4deg);
+	}
+	100% {
+		-webkit-transform:rotate(4deg);
+	}
+  50% {
+    -webkit-transform:rotate(-4deg);
+  }
+  0% {
+		-webkit-transform:rotate(4deg);
+	}
+}
+
+.wiggle:hover {
+	-webkit-animation: wiggle 0.5s;
+	-webkit-animation-iteration-count: 3;
+}

@@ -16,20 +16,20 @@
 
       <div class="navBar">
         <div class="column  1">
-          <%= link_to image_tag("views-logo6.png", size:"100x45"), views_path(current_user) %>
+          <%= link_to image_tag("views-logo6.png", size:"100x45", class:"wiggle"), views_path(current_user) %>
         </div>
 
         <div class="column 2">
-          <%= link_to image_tag("user-2-icon.png", size:"40x40"), current_user%>
+          <%= link_to image_tag("user-2-icon.png", size:"40x40", class:"wiggle"), current_user%>
         </div>
 
         <div class="column 3">
           <%= form_tag searchPicture_path, :method => 'get', id:"searchForm"  do %>
           <div class="ui icon input">
-            <%= text_field_tag :type, params[:type], placeholder:"search...", class:"theSearchInput" %>
+            <%= text_field_tag :type, params[:type], placeholder:"search...", class:"theSearchInput wiggle" %>
             <i class="circular search link icon" id="searchInputIcon"></i>
           </div>
-          <span class="drop custom-dropdown custom-dropdown--white custom-dropdown--small">
+          <span class="drop custom-dropdown custom-dropdown--white custom-dropdown--small wiggle">
               <select class="custom-dropdown__select custom-dropdown__select--white">
                   <option>User</option>
                   <option>Location</option>
@@ -41,27 +41,25 @@
         </div>
 
         <div class="column 4">
-          <%= link_to image_tag("users-4-icon.png", size: "50x45"), request_path%>
+          <%= link_to image_tag("users-4-icon.png", size: "50x45", class:"wiggle"), request_path%>
         </div>
 
         <div class="column 5">
-          <%= link_to image_tag("exitDoor.png", size:"50x50"), destroy_user_session_path, method: :delete%>
+          <%= link_to image_tag("exitDoor.png", size:"50x50", class:"wiggle"), destroy_user_session_path, method: :delete%>
         </div>
       </div>
 
     <% else %>
       <div class="login">
-        <%= image_tag("views-logo3.png", size:"126x55")%>
+        <%= image_tag("views-logo3.png", size:"126x55", class:"wiggle")%>
       </div>
     <% end %>
 
+    <div class="errors">
+    </div>
     <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
     <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
     <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
-
-    <br>
-    <div class="errors">
-    </div>
 
     <div id="yield">
       <%= yield %>

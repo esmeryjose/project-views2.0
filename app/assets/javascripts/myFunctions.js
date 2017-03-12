@@ -15,9 +15,13 @@ class Error {
   displayErrors(){
     var errorList = "";
     this.getMessages().forEach(v=>{
-      errorList+=`<li>${v}</li>`
+      errorList+=`<div class="eachError">${v}</div><br>`
     });
-    $('.errors').html(errorList);
+
+    interact(".errors",errorList,"replace")
+    $('.errors').slideDown('slow', function () {
+      $(this).delay(5000).slideUp('slow');
+    });
   }
 }
 
