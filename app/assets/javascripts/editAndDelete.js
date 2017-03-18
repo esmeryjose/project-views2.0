@@ -1,5 +1,6 @@
 function editClicked() {
   $("#yield").on("click",".editButton", function(e){
+    debugger;
     var picId = this.className.split(" ")[3];
     var url = `/pictures/${picId}/edit`
     $.ajax({
@@ -8,16 +9,16 @@ function editClicked() {
       dataType: "text",
       success: response=>{
         var editForm = response.split(`<input type="hidden" name="parseForm">`)[1];
-        interact("#yield",editForm,"append");
+        interact("#yield",editForm,"replace");
 
-        $('.ui.modal')
-        .modal({
-          inverted: true
-        })
-        .modal('show')
-      ;
+      //   $('.ui.modal')
+      //   .modal({
+      //     inverted: true
+      //   })
+      //   .modal('show')
+      // ;
 
-        // $(".ui.modal").show()
+        $(".ui.modal").show()
 
       },
       error: error=>{

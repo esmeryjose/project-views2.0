@@ -1,8 +1,6 @@
 
 <% if user == current_user %>
-  <button type="button" name="button" id="someButton">Post Picture</button>
-  <input type="hidden" name="parseForm">
-  <%= form_for picture, :html => { id:"nestedForm", class:"ui modal"} do |f| %>
+  <%= form_for picture,:remote=>true, :html => { id:"nestedForm", class:"ui modal"} do |f| %>
     <div class="formContent">
     <% if params[:action] != "edit" %>
     <%= f.file_field :avatar%><br><br>
@@ -27,12 +25,12 @@
     <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :title %><br><br>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <% if params[:action] == "edit" %>
-    <%= f.submit " Edit Picture", id:"submitButton"  %>
+    <%= f.button " Edit Picture", id:"submitButton"  %>
     <% else %>
-    <%= f.submit " Post Picture", id:"submitButton"  %>
+    <%= f.button " Post Picture", id:"submitButton"  %>
     <% end %>
   </div>
   <% end %>
 
-  <input type="hidden" name="parseForm">
 <% end %>
+<input type="hidden" name="parseForm">

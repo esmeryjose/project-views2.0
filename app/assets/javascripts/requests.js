@@ -6,6 +6,7 @@ function getRequests() {
     method:'GET',
     dataType:'json',
     success: response=>{
+      $(".loader").hide();
       createRequestUser(response)
     },
     error: error=>{
@@ -25,6 +26,7 @@ function createRequestUser(response) {
 
 $( document ).on('turbolinks:load', ()=> {
   if ($(".users_follower_requests").length) {
+    $(".loader").show();
     attachUserButtonListerner()
     getRequests();
   }

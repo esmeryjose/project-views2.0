@@ -1,5 +1,6 @@
 function pictureAjax(x) {
   var route;
+
   !!x? route = x : route = getRoute();
 
   $.ajax({
@@ -7,9 +8,15 @@ function pictureAjax(x) {
     method: "GET",
     dataType: "json",
     success: response=>{
+      $(".loader").hide();
       if (isShowPage(route)) {
         showPictureDisplay(response);
       } else {
+        var newDiv = `
+        <div id="indexPictures" class="containerIndex">
+        </div>
+        `
+        interact("#yield",newDiv,"replace")
         collageDisplay(response);
       }
     },
@@ -29,6 +36,7 @@ function collageDisplay(picturesArray){
 
 $(document).on('turbolinks:load', ()=> {
     if ($(".users_views").length) {
+      $(".loader").show();
       searchData ="";
       formSubmit();
       pictureAjax();

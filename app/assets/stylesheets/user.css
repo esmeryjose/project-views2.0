@@ -1,3 +1,5 @@
 .userInfo{
+  display: flex; /* or inline-flex */
+  flex-direction: column;
   text-align: center;
 }

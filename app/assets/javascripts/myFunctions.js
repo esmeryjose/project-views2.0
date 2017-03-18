@@ -66,7 +66,3 @@ function theCurrentUserId(){
 function clearSearchForm() {
   $("#searchForm")[0].elements[1].value = "";
 }
-
-function createInside() {
-
-}

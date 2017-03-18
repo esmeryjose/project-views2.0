@@ -105,7 +105,7 @@ class Picture {
     htmlTags = this.makeTags();
     itemClass = this.makeItemClass();
     var htmlPicture = `
-          <div class="ui card item${itemClass}">
+          <div class="ui card item${itemClass} ${this.id}">
             <div class="content">
               <div class="right floated meta">${this.date}</div>
               <a class="userName" href="/users/${this.user.id}">${this.user.name}</a>
@@ -131,13 +131,19 @@ class Picture {
   }
 
   displayPicture(id){
-    $(`#${id}`).prepend(this.pictureStructure());
+
+    interact(`#${id}`,this.pictureStructure(),"prepend")
+    // $(`ui card ${this.id}`).transition('scale')
+    // $(`ui card ${this.id}`).transition('scale')
+    // $(`#${id}`).fadeIn();
+    // $(`#${id}`).prepend(this.pictureStructure());
   }
 
 }
 
 function formSubmit() {
   $("#yield").on("submit","#nestedForm",function(e){
+    e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
     var url = this.action.split("http://localhost:3000")[1];
@@ -153,6 +159,8 @@ function formSubmit() {
       processData: false,
       contentType: false,
       success: response=>{
+        debugger;
+        console.log("form submition")
         if (formClass === "new_picture") {
           postNewPicture(response, formId, submitButtonId);
         } else {

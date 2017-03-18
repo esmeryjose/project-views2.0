@@ -255,3 +255,11 @@ body{
 	-webkit-animation: wiggle 0.5s;
 	-webkit-animation-iteration-count: 3;
 }
+
+.loader{
+  display: none;
+  width: 200px;
+  height: 200px;
+  margin-top: 15% !important;
+  margin: 0 auto;
+}

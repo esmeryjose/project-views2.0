@@ -87,11 +87,14 @@ class User{
   displayUser(){
     var htmlUserInfo = `
       <h1>${this.name}</h1>
+      
+      <button type="button" name="button" id="someButton">Post Picture</button>
     `;
     $('.userInfo').html("");
     $(`#thePictures`).html("");
     $('.userInfo').append(htmlUserInfo);
     displayPictureCollection(this.pictures,"thePictures","users_show");
+
   }
 }
 
@@ -101,6 +104,7 @@ function getUser() {
     method: "GET",
     dataType: "json",
     success: response=>{
+      $(".loader").hide();
       var user = new User(response)
       user.displayUser();
     },
@@ -111,8 +115,20 @@ function getUser() {
   });
 }
 
+function attachModalListerner(){
+  $("#someButton").on("click",()=>{
+    $('.ui.modal')
+    .modal({inverted: true})
+    .modal('show');
+  });
+
+
+}
+
 $( document ).on('turbolinks:load', ()=> {
+  attachModalListerner();
   if ($(".users_show").length) {
+    $(".loader").show();
     getUser();
   }
 })

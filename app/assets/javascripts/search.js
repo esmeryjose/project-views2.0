@@ -24,6 +24,8 @@ function searchDeligator(e,block) {
   e.preventDefault();
   searchWord = $(block)[0].children[1].children[0].value.trim();
   if (searchWord !== "") {
+    $("#yield").hide()
+    $(".loader").show();
     searchType = block.children[2].children[0].value
     searchData = {
       search: searchType,
@@ -43,6 +45,8 @@ function searchAjax(data) {
     method: 'POST',
     data: data,
     success: response=>{
+      $(".loader").hide();
+      $("#yield").show();
       clearYield();
       if (searchType === "User") {
         displaySearchUsers(response);
@@ -51,6 +55,8 @@ function searchAjax(data) {
       }
     },
     error: error=>{
+      $(".loader").hide();
+      $("#yield").show();
       searchWord = ""
       var failResponse = new Error (error.responseJSON);
       failResponse.displayErrors();
@@ -129,14 +135,6 @@ function associationResponse(response,userButtonClass) {
   }
 }
 
-function attachModalListerner(){
-  $("#someButton").on("click",()=>{
-    $('.ui.modal')
-    .modal({inverted: true})
-    .modal('show');
-  });
-}
-
 (function(){
 	var customSelects = document.querySelectorAll(".custom-dropdown__select");
 	for(var i=0; i<customSelects.length; i++){
@@ -152,6 +150,5 @@ $(document).on('turbolinks:load',()=>{
   formSubmit();
   attachSearchFormListener();
   attachSearchIconListener();
-  attachModalListerner();
 
 });
