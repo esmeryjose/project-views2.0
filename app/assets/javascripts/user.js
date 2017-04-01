@@ -124,6 +124,8 @@ function attachModalListerner(){
 
 }
 
+
+
 $( document ).on('turbolinks:load', ()=> {
   attachModalListerner();
   if ($(".users_show").length) {

@@ -131,7 +131,8 @@ function associationResponse(response,userButtonClass) {
   } else {
     var divClassId = userButtonClass.split(" ")[1];
     var divClass = `${divClassId}.ui.cards.request`;
-    $(`.${divClass}`)[0].remove();
+    $(`.${divClass}`).transition('fly down','1500ms');;
+    setTimeout(()=>{ $(`.${divClass}`).remove(); }, 2000);
   }
 }
 

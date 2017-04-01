@@ -14,11 +14,8 @@ function editClicked() {
         .modal({
           inverted: true
         })
-        .modal('show')
-      ;
-
-        // $(".ui.modal").show()
-
+        .modal('show');
+        
       },
       error: error=>{
 

@@ -5,7 +5,7 @@ class SearchesController < ApplicationController
 
   def searchPicture
     @search = helpers.find_search(params[:type],params[:search])
-    if !@search.empty?
+     if !@search.empty?
       render json: @search
     else
       render json: {"#{params[:type]}": "does not exist"} , status: 422
