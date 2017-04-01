@@ -1,6 +1,6 @@
 
 <% if user == current_user %>
-  <%= form_for picture,:remote=>true, :html => { id:"nestedForm", class:"ui modal"} do |f| %>
+  <%= form_for picture, :html => { id:"nestedForm", class:"newPicture ui modal"} do |f| %>
     <div class="formContent">
     <% if params[:action] != "edit" %>
     <%= f.file_field :avatar%><br><br>

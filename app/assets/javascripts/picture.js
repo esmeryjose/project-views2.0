@@ -90,13 +90,14 @@ class Picture {
   makeItemClass(){
     var showClass = "", bodyClass = $('body')[0].className;
 
-    if (bodyClass === "users_show" && !!this.itemClass) {
+    if (bodyClass.includes("users_show") && !!this.itemClass) {
       showClass = "UserShow";
     }
 
     return showClass;
     // its going to return the class of the item
   }
+
   pictureStructure(){
     var htmlTags,htmlButton, showClass = "", bodyClass, itemClass,
         route = `/users/${this.user.id}/pictures/${this.id}`;
@@ -142,16 +143,16 @@ class Picture {
 }
 
 function formSubmit() {
-  $("#yield").on("submit","#nestedForm",function(e){
+  $("body").on("submit","#nestedForm",function(e){
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
+    $('.ui.modal').modal('hide')
     var url = this.action.split("http://localhost:3000")[1];
     var formId = this.id;
-    var formClass = this.className;
-    var submitButtonId = $("#submitButton")[0].id
+    var formClass = this.className.split(" ")[0];
+    var submitButtonId = $("#submitButton")[0].id;
     var newData = new FormData(this);
-
     $.ajax({
       type: "POST",
       url: url,
@@ -159,9 +160,7 @@ function formSubmit() {
       processData: false,
       contentType: false,
       success: response=>{
-        debugger;
-        console.log("form submition")
-        if (formClass === "new_picture") {
+        if (formClass === "newPicture") {
           postNewPicture(response, formId, submitButtonId);
         } else {
           postEditPicture();
@@ -178,7 +177,7 @@ function formSubmit() {
 }
 
 function postNewPicture(response, formId, submitButtonId) {
-  var picture = new Picture(response);
+  var picture = new Picture(response,"UserShow");
   picture.displayPicture("thePictures");
   clearForm(formId, submitButtonId);
 }
@@ -214,7 +213,7 @@ function postEditPicture() {
 
 function displayPictureCollection(pictures,id, someClass) {
   pictures.forEach(pic=>{
-    var photo = new Picture(pic,someClass);
+    var photo = new Picture(pic,someClass,"users_show");
     photo.displayPicture(id);
   });
 }

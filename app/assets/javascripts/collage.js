@@ -9,6 +9,7 @@ function pictureAjax(x) {
     dataType: "json",
     success: response=>{
       $(".loader").hide();
+      $("#yield").show();
       if (isShowPage(route)) {
         showPictureDisplay(response);
       } else {

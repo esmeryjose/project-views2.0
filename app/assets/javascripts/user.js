@@ -87,7 +87,7 @@ class User{
   displayUser(){
     var htmlUserInfo = `
       <h1>${this.name}</h1>
-      
+
       <button type="button" name="button" id="someButton">Post Picture</button>
     `;
     $('.userInfo').html("");
@@ -116,12 +116,11 @@ function getUser() {
 }
 
 function attachModalListerner(){
-  $("#someButton").on("click",()=>{
-    $('.ui.modal')
+  $("#yield").on("click","#someButton",()=>{
+    $('#nestedForm')
     .modal({inverted: true})
     .modal('show');
   });
-
 
 }
 
