@@ -39,7 +39,7 @@ class PicturesController < ApplicationController
   end
 
   def destroy
-    response = {picture:"picture.#{@picture.id}"}
+    response = {picture:"card.#{@picture.id}"}
     @picture.destroy
     render json: response
   end

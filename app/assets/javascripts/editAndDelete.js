@@ -37,12 +37,14 @@ function deleteClicked() {
       url: url,
       method: "DELETE",
       success: response=>{
-        if (searchData) {
-          searchAjax(searchData)
-        } else {
-          location.reload();
-          $(`.${response.picture}`).parent().remove()
-        }
+        $(`.${response.picture}`).transition('fly right','1000ms');;
+        setTimeout(()=>{ $(`.${response.picture}`).remove(); }, 2000);
+        // if (searchData) {
+        //   searchAjax(searchData)
+        // } else {
+        //   $(`.${response.picture}`).transition('fly right','1000ms');;
+        //   setTimeout(()=>{ $(`.${response.picture}`).remove(); }, 2000);
+        // }
       },
       error: error=>{
 
