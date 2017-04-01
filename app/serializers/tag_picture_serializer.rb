@@ -1,3 +1,3 @@
 class TagPictureSerializer < ActiveModel::Serializer
-  attributes :id, :title, :location, :tags, :avatar, :user
+  attributes :id, :title, :location, :tags, :avatar, :user, :created_at
 end
