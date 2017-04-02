@@ -26,10 +26,10 @@
         <div class="column 3">
           <%= form_tag searchPicture_path, :method => 'get', id:"searchForm"  do %>
           <div class="ui icon input">
-            <%= text_field_tag :type, params[:type], placeholder:"search...", class:"theSearchInput wiggle" %>
+            <%= text_field_tag :type, params[:type], placeholder:"search...", class:"theSearchInput" %>
             <i class="circular search link icon" id="searchInputIcon"></i>
           </div>
-          <span class="drop custom-dropdown custom-dropdown--white custom-dropdown--small wiggle">
+          <span class="drop custom-dropdown custom-dropdown--white custom-dropdown--small">
               <select class="custom-dropdown__select custom-dropdown__select--white">
                   <option>User</option>
                   <option>Location</option>
