@@ -134,10 +134,7 @@ class Picture {
   displayPicture(id){
 
     interact(`#${id}`,this.pictureStructure(),"prepend")
-    // $(`ui card ${this.id}`).transition('scale')
-    // $(`ui card ${this.id}`).transition('scale')
-    // $(`#${id}`).fadeIn();
-    // $(`#${id}`).prepend(this.pictureStructure());
+    $(`.ui.card.${this.id}`).transition('drop',"600ms")
   }
 
 }

@@ -19,15 +19,12 @@ img{
   flex-direction: column;
 }
 
-// .ui.card{
-//   display: none !important;
-// }
-
 .item{
+  visibility: hidden;
   text-align: center;
   margin: 0 auto !important;
   width: 30% !important;
-  margin-bottom: 2% !important;
+  margin-bottom: .5% !important;
   margin-top: 2% !important;
 }
 
@@ -36,21 +33,17 @@ img{
   flex-direction: row;
   flex-wrap: wrap;
   width: 80%;
-  // margin: 0 auto !important;
   margin-left: 13%;
 }
 
 .itemUserShow{
-  // text-align: center;
-  // width: 20% !important;
-  // margin-bottom: 3% !important;
+  visibility: hidden;
   text-align: center;
   width: 20% !important;
   margin-bottom: 1% !important;
   margin-top: 1% !important;
   margin-left: 2% !important;
 }
-
 
 .tagContainer{
   display: flex;
@@ -65,7 +58,7 @@ img{
   margin-right: 1%;
 }
 
-.buttons{
+.ui.buttons{
   margin-top: 1%;
   margin-bottom: -3%;
   border-top: outset;

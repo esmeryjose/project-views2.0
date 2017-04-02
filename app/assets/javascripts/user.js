@@ -81,6 +81,7 @@ class User{
       </div>
     `;
     interact(".requestContainer",requestCards,"prepend")
+    $(`.${this.id}.ui.cards`).transition('vertical flip',"1000ms")
     // $('#yield').prepend(theDivs);
   }
 
